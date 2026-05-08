@@ -28,11 +28,15 @@ custom-tools:
     ore-hunter:
       actions:
         - "ore-searcher"
+    vein-mining:
+      actions:
+        - "vein-miner"
     prison-master:
       actions:
         - "@area-mining"
         - "@smelting"
         - "@ore-hunter"
+        - "@vein-mining"
   tools:
     quarry-hammer:
       material: NETHERITE_PICKAXE
@@ -69,6 +73,18 @@ custom-tools:
       shop:
         visible: true
         slot: 15
+        cost: 0
+    vein-pickaxe:
+      material: GOLDEN_PICKAXE
+      name: "&eVein Pickaxe"
+      lore:
+        - "&7Mines entire connected ore veins at once."
+        - "&7Right-click to toggle vein miner."
+      actions:
+        - "@vein-mining"
+      shop:
+        visible: true
+        slot: 12
         cost: 0
     prison-master:
       material: NETHERITE_PICKAXE

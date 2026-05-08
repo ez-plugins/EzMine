@@ -146,6 +146,27 @@ settings:
         # … add any Material enum name
 ```
 
+### Vein miner action
+
+When a player activates a tool with the `vein-miner` action and breaks a block, EzMine
+performs a BFS flood-fill across the six face-adjacent neighbours to find every connected
+block of the same material. All discovered blocks are mined together, with drops, XP
+multipliers, auto-smelt, and WorldGuard region checks applied to each.
+
+```yaml
+settings:
+  actions:
+    vein-miner:
+      enabled: true
+      # Maximum number of connected same-material blocks to mine in one swing.
+      # Accepted range: 1-512.
+      max-blocks: 64
+```
+
+{: .note }
+Vein mining deduplicates automatically with area mining — if both actions are active on
+the same tool, no block is processed twice.
+
 ### Tracked blocks
 
 Restrict EzMine to a specific set of materials. Only blocks in this list will have

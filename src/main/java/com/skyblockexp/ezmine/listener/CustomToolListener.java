@@ -37,6 +37,7 @@ public class CustomToolListener implements Listener {
     private final Set<UUID> enabled3x3 = new HashSet<>();
     private final Set<UUID> enabledAutoSmelt = new HashSet<>();
     private final Set<UUID> enabledOreSearcher = new HashSet<>();
+    private final Set<UUID> enabledVeinMiner = new HashSet<>();
     // Track mining direction for 3x3 tool per player (true = vertical, false = horizontal)
     private final Map<UUID, Boolean> vertical3x3 = new ConcurrentHashMap<>();
 
@@ -71,6 +72,7 @@ public class CustomToolListener implements Listener {
         boolean is3x3 = actions.stream().anyMatch(a -> a.equalsIgnoreCase("3x3"));
         boolean isAutoSmelt = actions.stream().anyMatch(a -> a.equalsIgnoreCase("auto-smelt"));
         boolean isOreSearcher = actions.stream().anyMatch(a -> a.equalsIgnoreCase("ore-searcher"));
+        boolean isVeinMiner = actions.stream().anyMatch(a -> a.equalsIgnoreCase("vein-miner"));
 
         if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
             if (player.isSneaking() && is3x3) {
@@ -116,6 +118,17 @@ public class CustomToolListener implements Listener {
                 }
                 toggled = true;
             }
+            // Toggle vein-miner
+            if (isVeinMiner) {
+                if (enabledVeinMiner.contains(player.getUniqueId())) {
+                    enabledVeinMiner.remove(player.getUniqueId());
+                    player.sendMessage(ChatColor.YELLOW + "Vein miner disabled.");
+                } else {
+                    enabledVeinMiner.add(player.getUniqueId());
+                    player.sendMessage(ChatColor.GREEN + "Vein miner enabled.");
+                }
+                toggled = true;
+            }
             if (toggled) {
                 // Update enabled actions in toolManager
                 Set<String> enabled = new HashSet<>();
@@ -127,6 +140,9 @@ public class CustomToolListener implements Listener {
                 }
                 if (isOreSearcher && enabledOreSearcher.contains(player.getUniqueId())) {
                     enabled.add("ore-searcher");
+                }
+                if (isVeinMiner && enabledVeinMiner.contains(player.getUniqueId())) {
+                    enabled.add("vein-miner");
                 }
                 this.toolManager.setActiveActions(player.getUniqueId(), enabled);
                 event.setCancelled(true);
@@ -147,6 +163,10 @@ public class CustomToolListener implements Listener {
             }
             if (isOreSearcher && enabledOreSearcher.contains(player.getUniqueId())) {
                 player.sendMessage(ChatColor.AQUA + "Ore searcher is active: nearby ores will be highlighted.");
+            }
+            if (isVeinMiner && enabledVeinMiner.contains(player.getUniqueId())) {
+                player.sendMessage(ChatColor.GREEN
+                    + "Vein miner is active: connected ores will be mined together.");
             }
         } else {
             player.sendMessage(ChatColor.GOLD + "EzMine custom tool ready.");
@@ -187,6 +207,7 @@ public class CustomToolListener implements Listener {
             enabled3x3.remove(player.getUniqueId());
             enabledAutoSmelt.remove(player.getUniqueId());
             enabledOreSearcher.remove(player.getUniqueId());
+            enabledVeinMiner.remove(player.getUniqueId());
             vertical3x3.remove(player.getUniqueId());
         } else {
             // On tool switch, enable all actions by default
@@ -206,6 +227,11 @@ public class CustomToolListener implements Listener {
             } else {
                 enabledOreSearcher.remove(player.getUniqueId());
             }
+            if (actions.contains("vein-miner")) {
+                enabledVeinMiner.add(player.getUniqueId());
+            } else {
+                enabledVeinMiner.remove(player.getUniqueId());
+            }
             this.toolManager.setActiveActions(player.getUniqueId(), actions);
             if (actions.contains("auto-smelt")) {
                 player.sendMessage(ChatColor.LIGHT_PURPLE
@@ -213,6 +239,10 @@ public class CustomToolListener implements Listener {
             }
             if (actions.contains("ore-searcher")) {
                 player.sendMessage(ChatColor.AQUA + "Ore searcher is active: nearby ores will be highlighted.");
+            }
+            if (actions.contains("vein-miner")) {
+                player.sendMessage(ChatColor.GREEN
+                    + "Vein miner is active: connected ores will be mined together.");
             }
         }
     }
@@ -224,6 +254,7 @@ public class CustomToolListener implements Listener {
         enabled3x3.remove(uuid);
         enabledAutoSmelt.remove(uuid);
         enabledOreSearcher.remove(uuid);
+        enabledVeinMiner.remove(uuid);
         vertical3x3.remove(uuid);
     }
 }

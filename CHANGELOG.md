@@ -18,14 +18,24 @@ All notable changes to EzMine are documented here.
 
 ### Added
 
-- **GitHub Actions CI** — build verification on every push and pull request to `main`.
-- **Code quality workflow** — Checkstyle enforced on every push and pull request.
-- **Documentation site** — new Jekyll/GitHub Pages docs at `docs/`.
-- **Docs CI workflow** — markdownlint and Javadoc verification on pull requests.
-- **Publish workflow** — automated release to GitHub Packages and Modrinth on version tags.
-- **`checkstyle.xml`** — Checkstyle configuration aligned with project code style.
-- **`.markdownlint.yml`** — Markdown lint configuration for all documentation files.
-- **`.gitignore`** — comprehensive ignore rules for Maven and IDE artifacts.
+- **Vein miner action** - New `vein-miner` custom tool action. When active, mining any
+  tracked block automatically mines the entire connected vein of the same material in one
+  swing. Uses a BFS flood-fill across the six face-connected neighbours.
+  - Configurable via `settings.actions.vein-miner`: `enabled` flag and `max-blocks`
+    (default `64`, hard cap `512`).
+  - Fully compatible with area mining, auto-smelt, ore-searcher, all rank drop/XP
+    multipliers, and WorldGuard region checks.
+  - Built-in `vein-mining` action group and `vein-pickaxe` example tool added to
+    `tools.yml`.
+  - `prison-master` combo action group now includes `vein-mining` by default.
+- **GitHub Actions CI** - build verification on every push and pull request to `main`.
+- **Code quality workflow** - Checkstyle enforced on every push and pull request.
+- **Documentation site** - new Jekyll/GitHub Pages docs at `docs/`.
+- **Docs CI workflow** - markdownlint and Javadoc verification on pull requests.
+- **Publish workflow** - automated release to GitHub Packages and Modrinth on version tags.
+- **`checkstyle.xml`** - Checkstyle configuration aligned with project code style.
+- **`.markdownlint.yml`** - Markdown lint configuration for all documentation files.
+- **`.gitignore`** - comprehensive ignore rules for Maven and IDE artifacts.
 
 ### Changed
 

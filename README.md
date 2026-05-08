@@ -24,8 +24,11 @@ top of vanilla mining.
   Keep vanilla mining in survival and full progression in your prison mine.
 - **Tracked blocks** - Restrict EzMine to specific ores so regular blocks stay vanilla.
 - **Auto-smelt** - Instantly convert ore drops to ingots (or custom outputs) per rank.
-- **Custom tools** - Distribute scripted pickaxes with 3x3 harvesting, ore-searcher
-  particle hints, and forced auto-smelt. Configured entirely from YAML.
+- **Custom tools** - Distribute scripted pickaxes with 3x3 harvesting, vein mining,
+  ore-searcher particle hints, and forced auto-smelt. Configured entirely from YAML.
+- **Vein miner** - Mine an entire connected ore vein in one swing. BFS flood-fill across
+  face-adjacent blocks of the same material, capped by a configurable `max-blocks` limit
+  (default 64). Compatible with area mining, auto-smelt, and all rank multipliers.
 - **Pickaxe shop** - Players browse and purchase custom tools through a GUI shop backed
   by [Vault](https://www.spigotmc.org/resources/vault.34315/) economy (optional).
 - **[EzSkills](https://modrinth.com/plugin/ezskills) and [mcMMO](https://www.spigotmc.org/resources/mcmmo.2445/)** - Gate ranks by external skill levels; award skill XP per block broken.

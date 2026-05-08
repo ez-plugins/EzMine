@@ -23,9 +23,10 @@ When a player right-clicks with a custom tool, its actions activate. Actions inc
 
 | Action | Effect |
 |--------|--------|
-| `3x3` | Mine a 3x3 area centered on the broken block |
+| `3x3` | Mine a 3×3 area centered on the broken block |
 | `auto-smelt` | Instantly smelt ore drops to ingots |
 | `ore-searcher` | Spawn particle hints toward nearby ores |
+| `vein-miner` | Mine all face-connected blocks of the same material (BFS, configurable max-blocks) |
 
 Multiple actions can be combined on a single tool. Action groups let you reuse combinations
 across multiple tools without repeating configuration.
@@ -56,11 +57,15 @@ custom-tools:
     ore-hunter:
       actions:
         - "ore-searcher"
+    vein-mining:
+      actions:
+        - "vein-miner"
     prison-master:       # Combine multiple groups
       actions:
         - "@area-mining"
         - "@smelting"
         - "@ore-hunter"
+        - "@vein-mining"
 
   tools:
     quarry-hammer:
@@ -87,6 +92,18 @@ custom-tools:
         visible: true
         slot: 13
         cost: 500
+
+    vein-pickaxe:
+      material: GOLDEN_PICKAXE
+      name: "&aVein Pickaxe"
+      lore:
+        - "&7Mines the entire ore vein in one swing."
+      actions:
+        - "@vein-mining"
+      shop:
+        visible: true
+        slot: 12
+        cost: 0
 
     prison-master:
       material: NETHERITE_PICKAXE
@@ -149,7 +166,7 @@ Common messages and their fixes:
 |---------|-----|
 | `Missing material for custom tool <id>` | Set a valid Bukkit `Material` name. |
 | `Unknown material <name>` | Correct the material name - must match a `Material` enum value exactly. |
-| `Unknown action '<action>'` | Use a built-in action (`3x3`, `auto-smelt`, `ore-searcher`) or a defined `@group`. |
+| `Unknown action '<action>'` | Use a built-in action (`3x3`, `auto-smelt`, `ore-searcher`, `vein-miner`) or a defined `@group`. |
 | `Duplicate custom tool id after normalization` | Tool IDs are case-insensitive; ensure each key is unique. |
 | `custom-model-data must be zero or positive` | Use a non-negative integer. |
 | `shop.slot out of range` | Choose a slot within `shop.rows * 9 - 1`. |

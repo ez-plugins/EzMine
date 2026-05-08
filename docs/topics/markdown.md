@@ -14,7 +14,8 @@
 - **Smart auto-smelt**: Convert ore drops to ingots (or custom outputs) instantly. Merge EzMine's defaults with your own recipes through `settings.auto-smelt-results`.
 - **Fortune control**: Disable fortune on a per-rank or per-block basis to keep progression balanced.
 - **Block overrides**: Fine-tune individual materials with custom multipliers or auto-smelt toggles while keeping global rank defaults.
-- **Custom tools**: Distribute bespoke pickaxes with scripted actions like 3×3 harvesting, ore searcher hints, and forced auto-smelt, all driven from configuration.
+- **Custom tools**: Distribute bespoke pickaxes with scripted actions like 3×3 harvesting, vein mining, ore searcher hints, and forced auto-smelt, all driven from configuration.
+- **Vein miner**: Mine an entire connected ore vein in one swing. A BFS flood-fill finds all face-adjacent same-material blocks up to a configurable `max-blocks` limit (default 64).
 - **Pickaxe shop**: Let players browse a GUI shop and purchase tools using optional Vault costs.
 - [**EzSkills**](https://www.spigotmc.org/resources/1-7-1-21-ezskills-lightweight-rpg-skill-ability-framework.131061/) / mcMMO integration: Use external skills for rank gates and experience, with optional per-world progression overrides.
 
@@ -34,6 +35,7 @@ Need a special pickaxe? Give staff `ezmine.custom-tool` so they can distribute t
 - `settings.worlds` — Enable/disable EzMine on specific worlds.
 - `settings.profiles` — Map worlds or WorldGuard regions to rank profiles.
 - `settings.actions.ore-searcher` — Configure the ore searcher action particles and targets.
+- `settings.actions.vein-miner` — Configure the vein miner action (`enabled`, `max-blocks`).
 - `settings.tracked-blocks` — Material list (Spigot enum names) that EzMine should manage.
 - `settings.auto-smelt-use-defaults` — Merge or replace EzMine's built-in smelt conversions.
 - `ranks.<name>.drop-multiplier` — Multiply the quantity of each drop.
@@ -252,6 +254,7 @@ Players right-click the configured item to activate its actions until they switc
 - `3x3` — Break a 3×3 area centred on the target block (horizontal plane).
 - `auto-smelt` — Force smelting even if the player's rank would normally drop raw ores.
 - `ore-searcher` — Show hint particles pointing toward nearby ores while mining.
+- `vein-miner` — Mine the entire connected ore vein (face-adjacent same-material blocks, BFS).
 
 Distribute these tools with `/ezmine tool <id> [player]` or bundle them into starter kits.
 
