@@ -26,6 +26,9 @@ jobs:
           java-version: '25'
           distribution: temurin
           cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
       # ── Build ──────────────────────────────────────────────────────────────
       - name: Build shaded jar
@@ -60,6 +63,7 @@ jobs:
       - name: Deploy to GitHub Packages
         run: mvn -B -DskipTests deploy
         env:
+          GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ── GitHub Release ─────────────────────────────────────────────────────
