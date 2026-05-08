@@ -139,7 +139,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>com.skyblockexp.ezmine.bstats</shadedPattern>
+                                    <shadedPattern>com.github.ezplugins.ezmine.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
