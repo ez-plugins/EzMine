@@ -41,7 +41,8 @@ public class CustomToolShopListener implements Listener {
             return;
         }
 
-        if (event.getClickedInventory() == null || event.getClickedInventory().getHolder() != event.getInventory().getHolder()) {
+        if (event.getClickedInventory() == null
+            || event.getClickedInventory().getHolder() != event.getInventory().getHolder()) {
             return;
         }
 
@@ -88,7 +89,8 @@ public class CustomToolShopListener implements Listener {
                 return;
             }
 
-            player.sendMessage(ChatColor.YELLOW + "Charged " + ChatColor.GOLD + formatCost(cost) + " " + settings.getCurrencyName() + ".");
+            player.sendMessage(ChatColor.YELLOW + "Charged " + ChatColor.GOLD
+                + formatCost(cost) + " " + settings.getCurrencyName() + ".");
         }
 
         ItemStack tool = definition.createItemStack(this.plugin.getMineConfiguration().getCustomTextureSettings());

@@ -127,7 +127,8 @@ public class WorldGuardIntegration {
         }
 
         String worldKey = location.getWorld().getName().toLowerCase(Locale.ROOT);
-        if (containsRegion(regions, this.blockedGlobalRegions) || containsRegion(regions, this.blockedWorldRegions.get(worldKey))) {
+        if (containsRegion(regions, this.blockedGlobalRegions)
+                || containsRegion(regions, this.blockedWorldRegions.get(worldKey))) {
             return false;
         }
 

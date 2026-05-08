@@ -76,23 +76,37 @@ public final class EzMine extends JavaPlugin {
         }
 
         boolean enableCustomTools = this.mineConfiguration.getCustomToolConfiguration().isEnabled();
-        if (this.mineConfiguration.getCustomToolReloadResult() != null && this.mineConfiguration.getCustomToolReloadResult().hasErrors()) {
+        var toolReloadResult = this.mineConfiguration.getCustomToolReloadResult();
+        if (toolReloadResult != null && toolReloadResult.hasErrors()) {
             enableCustomTools = false;
-            this.getLogger().severe("Disabling custom-tools due to configuration errors: " + this.mineConfiguration.getCustomToolReloadResult().getErrorMessages());
+            this.getLogger().severe("Disabling custom-tools due to configuration errors: "
+                + toolReloadResult.getErrorMessages());
             if (this.customToolManager != null) {
                 this.customToolManager.clearAll();
             }
         }
 
         if (enableCustomTools) {
-            this.getServer().getPluginManager().registerEvents(new CustomToolListener(this.mineConfiguration.getCustomToolConfiguration(), this.customToolManager), this);
-            this.getServer().getPluginManager().registerEvents(new CustomToolShopListener(this, this.vaultIntegration), this);
+            this.getServer().getPluginManager().registerEvents(
+                new CustomToolListener(
+                    this.mineConfiguration.getCustomToolConfiguration(),
+                    this.customToolManager),
+                this);
+            this.getServer().getPluginManager().registerEvents(
+                new CustomToolShopListener(this, this.vaultIntegration), this);
         } else {
             this.getLogger().info("Custom tools are disabled.");
         }
-        this.getServer().getPluginManager().registerEvents(new RankedMiningListener(this.mineConfiguration, this.ezSkillsIntegration, this.mcMMOIntegration, this.worldGuardIntegration, this.luckyPermsIntegration, this.customToolManager), this);
+        this.getServer().getPluginManager().registerEvents(
+            new RankedMiningListener(
+                this.mineConfiguration, this.ezSkillsIntegration,
+                this.mcMMOIntegration, this.worldGuardIntegration,
+                this.luckyPermsIntegration, this.customToolManager),
+            this);
 
-        this.getLogger().info("EzMine enabled. Active ranks: " + String.join(", ", this.mineConfiguration.getRankNames(this.mineConfiguration.getDefaultProfileName())));
+        this.getLogger().info("EzMine enabled. Active ranks: "
+            + String.join(", ", this.mineConfiguration.getRankNames(
+                this.mineConfiguration.getDefaultProfileName())));
     }
 
     @Override
@@ -138,7 +152,8 @@ public final class EzMine extends JavaPlugin {
 
     private FileConfiguration loadExternalConfiguration(String key, String fallbackFile) {
         String configuredName = this.getConfig().getString("files." + key, fallbackFile);
-        String fileName = configuredName == null || configuredName.trim().isEmpty() ? fallbackFile : configuredName.trim();
+        String fileName = configuredName == null || configuredName.trim().isEmpty()
+            ? fallbackFile : configuredName.trim();
         File file = new File(this.getDataFolder(), fileName);
         if (!file.exists()) {
             this.saveResource(fileName, false);

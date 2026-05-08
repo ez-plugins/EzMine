@@ -76,7 +76,8 @@ public class CustomToolListener implements Listener {
             if (player.isSneaking() && is3x3) {
                 boolean vertical = vertical3x3.getOrDefault(player.getUniqueId(), false);
                 vertical3x3.put(player.getUniqueId(), !vertical);
-                player.sendMessage(ChatColor.AQUA + "3x3 mining direction: " + (!vertical ? ChatColor.LIGHT_PURPLE + "Vertical" : ChatColor.YELLOW + "Horizontal"));
+                player.sendMessage(ChatColor.AQUA + "3x3 mining direction: "
+                    + (!vertical ? ChatColor.LIGHT_PURPLE + "Vertical" : ChatColor.YELLOW + "Horizontal"));
                 event.setCancelled(true);
                 return;
             }
@@ -99,7 +100,8 @@ public class CustomToolListener implements Listener {
                     player.sendMessage(ChatColor.YELLOW + "Auto-smelt disabled.");
                 } else {
                     enabledAutoSmelt.add(player.getUniqueId());
-                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Auto-smelt enabled: all drops will be instantly smelted.");
+                    player.sendMessage(ChatColor.LIGHT_PURPLE
+                        + "Auto-smelt enabled: all drops will be instantly smelted.");
                 }
                 toggled = true;
             }
@@ -117,9 +119,15 @@ public class CustomToolListener implements Listener {
             if (toggled) {
                 // Update enabled actions in toolManager
                 Set<String> enabled = new HashSet<>();
-                if (is3x3 && enabled3x3.contains(player.getUniqueId())) enabled.add("3x3");
-                if (isAutoSmelt && enabledAutoSmelt.contains(player.getUniqueId())) enabled.add("auto-smelt");
-                if (isOreSearcher && enabledOreSearcher.contains(player.getUniqueId())) enabled.add("ore-searcher");
+                if (is3x3 && enabled3x3.contains(player.getUniqueId())) {
+                    enabled.add("3x3");
+                }
+                if (isAutoSmelt && enabledAutoSmelt.contains(player.getUniqueId())) {
+                    enabled.add("auto-smelt");
+                }
+                if (isOreSearcher && enabledOreSearcher.contains(player.getUniqueId())) {
+                    enabled.add("ore-searcher");
+                }
                 this.toolManager.setActiveActions(player.getUniqueId(), enabled);
                 event.setCancelled(true);
                 return;
@@ -131,9 +139,11 @@ public class CustomToolListener implements Listener {
         if (!actions.isEmpty()) {
             List<String> labels = new ArrayList<>(actions);
             Collections.sort(labels);
-            player.sendMessage(ChatColor.GOLD + "EzMine custom tool actions: " + ChatColor.AQUA + String.join(ChatColor.GRAY + ", " + ChatColor.AQUA, labels));
+            player.sendMessage(ChatColor.GOLD + "EzMine custom tool actions: "
+                + ChatColor.AQUA + String.join(ChatColor.GRAY + ", " + ChatColor.AQUA, labels));
             if (isAutoSmelt && enabledAutoSmelt.contains(player.getUniqueId())) {
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "Auto-smelt is active: all drops will be instantly smelted.");
+                player.sendMessage(ChatColor.LIGHT_PURPLE
+                    + "Auto-smelt is active: all drops will be instantly smelted.");
             }
             if (isOreSearcher && enabledOreSearcher.contains(player.getUniqueId())) {
                 player.sendMessage(ChatColor.AQUA + "Ore searcher is active: nearby ores will be highlighted.");
@@ -149,7 +159,9 @@ public class CustomToolListener implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         CustomToolDefinition definition = this.configuration.match(item);
-        if (definition == null) return;
+        if (definition == null) {
+            return;
+        }
         Set<String> actions = definition.getActions();
         boolean is3x3 = actions.stream().anyMatch(a -> a.equalsIgnoreCase("3x3"));
         if (is3x3 && enabled3x3.contains(player.getUniqueId())) {
@@ -179,12 +191,25 @@ public class CustomToolListener implements Listener {
         } else {
             // On tool switch, enable all actions by default
             Set<String> actions = definition.getActions();
-            if (actions.contains("3x3")) enabled3x3.add(player.getUniqueId()); else enabled3x3.remove(player.getUniqueId());
-            if (actions.contains("auto-smelt")) enabledAutoSmelt.add(player.getUniqueId()); else enabledAutoSmelt.remove(player.getUniqueId());
-            if (actions.contains("ore-searcher")) enabledOreSearcher.add(player.getUniqueId()); else enabledOreSearcher.remove(player.getUniqueId());
+            if (actions.contains("3x3")) {
+                enabled3x3.add(player.getUniqueId());
+            } else {
+                enabled3x3.remove(player.getUniqueId());
+            }
+            if (actions.contains("auto-smelt")) {
+                enabledAutoSmelt.add(player.getUniqueId());
+            } else {
+                enabledAutoSmelt.remove(player.getUniqueId());
+            }
+            if (actions.contains("ore-searcher")) {
+                enabledOreSearcher.add(player.getUniqueId());
+            } else {
+                enabledOreSearcher.remove(player.getUniqueId());
+            }
             this.toolManager.setActiveActions(player.getUniqueId(), actions);
             if (actions.contains("auto-smelt")) {
-                player.sendMessage(ChatColor.LIGHT_PURPLE + "Auto-smelt is active: all drops will be instantly smelted.");
+                player.sendMessage(ChatColor.LIGHT_PURPLE
+                    + "Auto-smelt is active: all drops will be instantly smelted.");
             }
             if (actions.contains("ore-searcher")) {
                 player.sendMessage(ChatColor.AQUA + "Ore searcher is active: nearby ores will be highlighted.");

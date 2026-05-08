@@ -18,7 +18,7 @@ nav_order: 4
 
 ## EzSkills
 
-EzMine integrates with [EzSkills](https://github.com/ez-plugins/EzSkills) to:
+EzMine integrates with [EzSkills](https://modrinth.com/plugin/ezskills) to:
 
 - **Gate ranks** by a player's EzSkills mining skill level (`minimum-skill-level` in `ranks.yml`)
 - **Award EzSkills XP** every time a player breaks a tracked block
@@ -59,9 +59,9 @@ ezskills:
 | `experience.material-overrides` | map | `{}` | Per-material XP overrides (Material name -> XP amount). Overrides `base-per-block` for that material. |
 
 {: .note }
-EzSkills 2.0+ is required. EzMine uses the direct `EzSkillsAPI` class from the
+EzSkills 2.0+ is required. EzMine calls `EzSkillsAPI` directly via the
 [EzSkills API module](https://github.com/ez-plugins/EzSkills). When EzSkills is not
-installed, this integration is silently skipped.
+installed the integration is silently skipped.
 
 ---
 
@@ -103,7 +103,7 @@ cancels the vanilla drop, so mcMMO's block processing is unaffected.
 ## Vault
 
 [Vault](https://www.spigotmc.org/resources/vault.34315/) powers the pickaxe shop. When
-Vault is installed and `custom-tools.shop.vault.enabled: true` is set, players pay from
+Vault is installed and `custom-tools.shop.vault.enabled: true` is set, players spend
 their economy balance to purchase tools.
 
 ### Setup
@@ -131,7 +131,7 @@ A `cost` of `0` makes the tool free.
 
 ## WorldGuard
 
-[WorldGuard](https://enginehub.org/worldguard/) lets you restrict EzMine perks to specific
+[WorldGuard](https://modrinth.com/plugin/worldguard) lets you restrict EzMine perks to specific
 regions or require players to be inside a region before perks activate.
 
 ### Setup
@@ -164,8 +164,8 @@ settings:
 
 ## LuckPerms
 
-When enabled, EzMine can resolve a player's rank by their LuckPerms primary group name
-instead of (or in addition to) a direct permission check.
+When enabled, EzMine can resolve a player's rank by their [LuckPerms](https://modrinth.com/plugin/luckperms)
+primary group name instead of (or in addition to) a direct permission check.
 
 ### Setup
 
@@ -188,6 +188,6 @@ ranks:
 ```
 
 {: .note }
-LuckPerms integration complements the standard permission system — it does not replace it.
+LuckPerms integration complements the standard permission system - it does not replace it.
 If `luckperms.enabled` is `false` or LuckPerms is not installed, all rank resolution falls
 back to standard Bukkit permissions.

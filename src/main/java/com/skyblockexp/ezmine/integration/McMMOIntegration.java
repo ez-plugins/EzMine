@@ -114,13 +114,17 @@ public class McMMOIntegration {
             this.baseExperiencePerBlock = Math.max(0.0D, experienceSection.getDouble("base-per-block", 0.0D));
             this.applyRankMultiplier = experienceSection.getBoolean("apply-rank-multiplier", true);
 
-            ConfigurationSection materialOverridesSection = experienceSection.getConfigurationSection("material-overrides");
+            ConfigurationSection materialOverridesSection =
+                experienceSection.getConfigurationSection("material-overrides");
             if (materialOverridesSection != null) {
                 Map<Material, Double> overrides = new EnumMap<>(Material.class);
                 for (String key : materialOverridesSection.getKeys(false)) {
                     Material material = Material.matchMaterial(key, false);
                     if (material == null) {
-                        this.plugin.getLogger().log(Level.WARNING, "Unknown material in mcmmo.experience.material-overrides: {0}", key);
+                        this.plugin.getLogger().log(
+                            Level.WARNING,
+                            "Unknown material in mcmmo.experience.material-overrides: {0}",
+                            key);
                         continue;
                     }
 
@@ -139,22 +143,26 @@ public class McMMOIntegration {
             Class<?> experienceApiClass = Class.forName("com.gmail.nossr50.api.ExperienceAPI");
             Method levelMethod = resolveGetLevelMethod(experienceApiClass, defaultSkillUpper, configuredSkillDisplay);
             if (levelMethod == null) {
-                this.plugin.getLogger().warning("Unable to resolve mcMMO ExperienceAPI getLevel method. Integration disabled.");
+                this.plugin.getLogger().warning(
+                    "Unable to resolve mcMMO ExperienceAPI getLevel method. Integration disabled.");
                 return;
             }
             this.getLevelMethod = levelMethod;
 
-            Method addMethod = resolveAddExperienceMethod(experienceApiClass, defaultSkillUpper, configuredSkillDisplay);
+            Method addMethod =
+                resolveAddExperienceMethod(experienceApiClass, defaultSkillUpper, configuredSkillDisplay);
             this.addExperienceMethod = addMethod;
             if (this.addExperienceMethod == null) {
                 boolean hasPositiveOverride = this.baseExperiencePerBlock > 0.0D
                         || this.materialExperience.values().stream().anyMatch(value -> value > 0.0D);
                 if (hasPositiveOverride) {
-                    this.plugin.getLogger().warning("mcMMO experience rewards configured but no suitable addXP/addRawXP method was found.");
+                    this.plugin.getLogger().warning(
+                        "mcMMO experience rewards configured but no suitable addXP/addRawXP method was found.");
                 }
             }
         } catch (ClassNotFoundException exception) {
-            this.plugin.getLogger().log(Level.WARNING, "Failed to initialise mcMMO ExperienceAPI reflection", exception);
+            this.plugin.getLogger().log(
+                Level.WARNING, "Failed to initialise mcMMO ExperienceAPI reflection", exception);
             return;
         }
 
@@ -163,12 +171,16 @@ public class McMMOIntegration {
             return;
         }
 
-        boolean hasPositiveOverride = this.materialExperience.values().stream().anyMatch(value -> value > 0.0D);
-        this.experienceEnabled = this.addExperienceMethod != null && (this.baseExperiencePerBlock > 0.0D || hasPositiveOverride);
+        boolean hasPositiveOverride =
+            this.materialExperience.values().stream().anyMatch(value -> value > 0.0D);
+        this.experienceEnabled = this.addExperienceMethod != null
+            && (this.baseExperiencePerBlock > 0.0D || hasPositiveOverride);
         if (this.experienceEnabled) {
-            this.plugin.getLogger().info("mcMMO integration enabled (skill: " + this.skillName + ").");
+            this.plugin.getLogger().info(
+                "mcMMO integration enabled (skill: " + this.skillName + ").");
         } else {
-            this.plugin.getLogger().info("mcMMO integration enabled (skill: " + this.skillName + ", no XP rewards configured).");
+            this.plugin.getLogger().info(
+                "mcMMO integration enabled (skill: " + this.skillName + ", no XP rewards configured).");
         }
     }
 
@@ -198,7 +210,8 @@ public class McMMOIntegration {
             return 0;
         }
 
-        Object skillArgument = resolveSkillArgumentForWorld(this.getLevelSkillArgumentType, this.getLevelSkillArgument, worldName);
+        Object skillArgument = resolveSkillArgumentForWorld(
+            this.getLevelSkillArgumentType, this.getLevelSkillArgument, worldName);
         if (skillArgument == null) {
             return 0;
         }
@@ -210,7 +223,8 @@ public class McMMOIntegration {
                 return (Integer) result;
             }
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            this.plugin.getLogger().log(Level.WARNING, "Failed to query mcMMO mining level", exception);
+            this.plugin.getLogger().log(
+                Level.WARNING, "Failed to query mcMMO mining level", exception);
         }
 
         return 0;
@@ -235,7 +249,8 @@ public class McMMOIntegration {
             return;
         }
 
-        Object skillArgument = resolveSkillArgumentForWorld(this.addExperienceSkillArgumentType, this.addExperienceSkillArgument, worldName);
+        Object skillArgument = resolveSkillArgumentForWorld(
+            this.addExperienceSkillArgumentType, this.addExperienceSkillArgument, worldName);
         if (skillArgument == null) {
             return;
         }
@@ -244,7 +259,8 @@ public class McMMOIntegration {
             Object target = this.addExperienceUsesUuidArgument ? player.getUniqueId() : player;
             Object amountArgument = this.addExperienceAmountType.toArgument(amount);
             Object[] arguments;
-            if (this.addExperienceExtraArguments != null && this.addExperienceExtraArguments.length > 0) {
+            if (this.addExperienceExtraArguments != null
+                    && this.addExperienceExtraArguments.length > 0) {
                 arguments = new Object[3 + this.addExperienceExtraArguments.length];
             } else {
                 arguments = new Object[3];
@@ -254,13 +270,17 @@ public class McMMOIntegration {
             arguments[1] = skillArgument;
             arguments[2] = amountArgument;
 
-            if (this.addExperienceExtraArguments != null && this.addExperienceExtraArguments.length > 0) {
-                System.arraycopy(this.addExperienceExtraArguments, 0, arguments, 3, this.addExperienceExtraArguments.length);
+            if (this.addExperienceExtraArguments != null
+                    && this.addExperienceExtraArguments.length > 0) {
+                System.arraycopy(
+                    this.addExperienceExtraArguments, 0, arguments, 3,
+                    this.addExperienceExtraArguments.length);
             }
 
             this.addExperienceMethod.invoke(null, arguments);
         } catch (IllegalAccessException | InvocationTargetException exception) {
-            this.plugin.getLogger().log(Level.WARNING, "Failed to award mcMMO mining experience", exception);
+            this.plugin.getLogger().log(
+                Level.WARNING, "Failed to award mcMMO mining experience", exception);
         }
     }
 
@@ -287,7 +307,9 @@ public class McMMOIntegration {
 
             Object skillArgument = resolveSkillArgument(parameters[1], this.skillName);
             if (skillArgument == null && !this.skillName.equals(defaultSkillUpper)) {
-                this.plugin.getLogger().warning("Configured mcMMO skill '" + configuredSkillDisplay + "' could not be resolved. Falling back to '" + defaultSkillUpper + "'.");
+                this.plugin.getLogger().warning(
+                    "Configured mcMMO skill '" + configuredSkillDisplay
+                    + "' could not be resolved. Falling back to '" + defaultSkillUpper + "'.");
                 this.skillName = defaultSkillUpper;
                 skillArgument = resolveSkillArgument(parameters[1], this.skillName);
             }
@@ -305,7 +327,8 @@ public class McMMOIntegration {
         return null;
     }
 
-    private Method resolveAddExperienceMethod(Class<?> apiClass, String defaultSkillUpper, String configuredSkillDisplay) {
+    private Method resolveAddExperienceMethod(
+            Class<?> apiClass, String defaultSkillUpper, String configuredSkillDisplay) {
         for (Method method : apiClass.getMethods()) {
             if (!Modifier.isStatic(method.getModifiers())) {
                 continue;
@@ -330,10 +353,14 @@ public class McMMOIntegration {
 
             Object skillArgument = resolveSkillArgument(parameters[1], this.skillName);
             if (skillArgument == null && !this.skillName.equals(defaultSkillUpper)) {
-                this.plugin.getLogger().warning("Configured mcMMO skill '" + configuredSkillDisplay + "' could not be resolved for experience rewards. Falling back to '" + defaultSkillUpper + "'.");
+                this.plugin.getLogger().warning(
+                    "Configured mcMMO skill '" + configuredSkillDisplay
+                    + "' could not be resolved for experience rewards. Falling back to '"
+                    + defaultSkillUpper + "'.");
                 this.skillName = defaultSkillUpper;
                 if (!updateGetLevelSkillArgument()) {
-                    this.plugin.getLogger().warning("Failed to resolve fallback mcMMO skill '" + defaultSkillUpper + "'.");
+                    this.plugin.getLogger().warning(
+                        "Failed to resolve fallback mcMMO skill '" + defaultSkillUpper + "'.");
                     return null;
                 }
                 skillArgument = resolveSkillArgument(parameters[1], this.skillName);
@@ -450,7 +477,8 @@ public class McMMOIntegration {
                 return null;
             }
 
-            if (parameter == int.class || parameter == Integer.class || parameter == short.class || parameter == Short.class) {
+            if (parameter == int.class || parameter == Integer.class
+                    || parameter == short.class || parameter == Short.class) {
                 return INTEGER;
             }
 

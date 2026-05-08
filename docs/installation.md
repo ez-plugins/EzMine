@@ -43,11 +43,11 @@ EzMine works standalone. Install any of the following for additional features:
 
 | Plugin | Purpose |
 |--------|---------|
-| [EzSkills](https://github.com/ez-plugins/EzSkills) | Gate ranks by mining skill level; award EzSkills XP per block |
+| [EzSkills](https://modrinth.com/plugin/ezskills) | Gate ranks by mining skill level; award EzSkills XP per block |
 | [mcMMO](https://www.spigotmc.org/resources/mcmmo.2445/) | Gate ranks by mcMMO mining level; award mcMMO XP |
 | [Vault](https://www.spigotmc.org/resources/vault.34315/) | Power the pickaxe shop with an economy balance |
-| [WorldGuard](https://enginehub.org/worldguard/) | Restrict EzMine to specific regions |
-| [LuckPerms](https://luckperms.net/) | Resolve ranks by primary group |
+| [WorldGuard](https://modrinth.com/plugin/worldguard) | Restrict EzMine perks to specific regions |
+| [LuckPerms](https://modrinth.com/plugin/luckperms) | Resolve ranks by primary group |
 
 {: .note }
 None of the optional dependencies are required. EzMine gracefully skips any integration whose

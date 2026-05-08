@@ -95,7 +95,8 @@ public class CustomToolShop {
 
         double cost = definition.getShopCost();
         if (cost > 0.0D) {
-            lore.add(ChatColor.YELLOW + "Cost: " + ChatColor.GOLD + formatCost(cost) + " " + settings.getCurrencyName());
+            lore.add(ChatColor.YELLOW + "Cost: " + ChatColor.GOLD
+                + formatCost(cost) + " " + settings.getCurrencyName());
         } else {
             lore.add(ChatColor.GREEN + "Free");
         }

@@ -27,15 +27,21 @@ public class WorldSettings {
                           Map<String, String> worldProfiles,
                           Map<String, Map<String, String>> regionProfiles) {
         this.defaultEnabled = defaultEnabled;
-        this.enabledWorlds = enabledWorlds == null ? Collections.emptySet() : Collections.unmodifiableSet(enabledWorlds);
-        this.disabledWorlds = disabledWorlds == null ? Collections.emptySet() : Collections.unmodifiableSet(disabledWorlds);
+        this.enabledWorlds = enabledWorlds == null
+            ? Collections.emptySet() : Collections.unmodifiableSet(enabledWorlds);
+        this.disabledWorlds = disabledWorlds == null
+            ? Collections.emptySet() : Collections.unmodifiableSet(disabledWorlds);
         this.defaultProfile = defaultProfile == null ? "default" : defaultProfile;
-        this.worldProfiles = worldProfiles == null ? Collections.emptyMap() : Collections.unmodifiableMap(worldProfiles);
-        this.regionProfiles = regionProfiles == null ? Collections.emptyMap() : Collections.unmodifiableMap(regionProfiles);
+        this.worldProfiles = worldProfiles == null
+            ? Collections.emptyMap() : Collections.unmodifiableMap(worldProfiles);
+        this.regionProfiles = regionProfiles == null
+            ? Collections.emptyMap() : Collections.unmodifiableMap(regionProfiles);
     }
 
     public static WorldSettings createDefault() {
-        return new WorldSettings(true, Collections.emptySet(), Collections.emptySet(), "default", Collections.emptyMap(), Collections.emptyMap());
+        return new WorldSettings(
+            true, Collections.emptySet(), Collections.emptySet(),
+            "default", Collections.emptyMap(), Collections.emptyMap());
     }
 
     public static WorldSettings fromConfiguration(FileConfiguration configuration) {
@@ -66,7 +72,9 @@ public class WorldSettings {
                     for (String worldName : worldProfilesSection.getKeys(false)) {
                         String profileName = worldProfilesSection.getString(worldName);
                         if (profileName != null && !profileName.trim().isEmpty()) {
-                            worldProfiles.put(worldName.toLowerCase(Locale.ROOT), profileName.trim().toLowerCase(Locale.ROOT));
+                            worldProfiles.put(
+                                worldName.toLowerCase(Locale.ROOT),
+                                profileName.trim().toLowerCase(Locale.ROOT));
                         }
                     }
                 }
@@ -82,7 +90,9 @@ public class WorldSettings {
                         for (String regionId : regionSection.getKeys(false)) {
                             String profileName = regionSection.getString(regionId);
                             if (profileName != null && !profileName.trim().isEmpty()) {
-                                mappings.put(regionId.toLowerCase(Locale.ROOT), profileName.trim().toLowerCase(Locale.ROOT));
+                                mappings.put(
+                                    regionId.toLowerCase(Locale.ROOT),
+                                    profileName.trim().toLowerCase(Locale.ROOT));
                             }
                         }
                         if (!mappings.isEmpty()) {
@@ -93,7 +103,9 @@ public class WorldSettings {
             }
         }
 
-        return new WorldSettings(defaultEnabled, enabledWorlds, disabledWorlds, defaultProfile, worldProfiles, regionProfiles);
+        return new WorldSettings(
+            defaultEnabled, enabledWorlds, disabledWorlds,
+            defaultProfile, worldProfiles, regionProfiles);
     }
 
     public boolean isWorldEnabled(String worldName) {
@@ -133,7 +145,8 @@ public class WorldSettings {
             return null;
         }
 
-        Map<String, String> worldMappings = worldName == null ? null : this.regionProfiles.get(worldName.toLowerCase(Locale.ROOT));
+        Map<String, String> worldMappings = worldName == null
+            ? null : this.regionProfiles.get(worldName.toLowerCase(Locale.ROOT));
         Map<String, String> globalMappings = this.regionProfiles.get("global");
 
         for (String regionName : regionNames) {

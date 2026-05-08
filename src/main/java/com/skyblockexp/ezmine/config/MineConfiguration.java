@@ -1,7 +1,6 @@
 package com.skyblockexp.ezmine.config;
 
 import com.skyblockexp.ezmine.EzMine;
-import com.skyblockexp.ezmine.config.ConfigurationReloadResult;
 import com.skyblockexp.ezmine.util.BukkitCompatibility;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -63,14 +62,16 @@ public class MineConfiguration {
         this.profiles.clear();
         this.profiles.putAll(parsedProfiles);
         // Load custom textures from both settings.yml and tools.yml (tools.yml takes precedence for custom tools)
-        this.customTextureSettings = CustomTextureSettings.fromMultipleConfigurations(settingsConfiguration, toolsConfiguration);
+        this.customTextureSettings = CustomTextureSettings.fromMultipleConfigurations(
+            settingsConfiguration, toolsConfiguration);
         this.defaultProfileName = this.resolveDefaultProfileName(this.worldSettings, parsedProfiles);
 
         ConfigurationReloadResult toolResult = this.customToolConfiguration.reload(toolsConfiguration);
         this.customToolReloadResult = toolResult;
         if (toolResult != null) {
             if (toolResult.hasErrors()) {
-                this.plugin.getLogger().warning("Errors while loading custom tools: " + toolResult.getErrorMessages());
+                this.plugin.getLogger().warning(
+                    "Errors while loading custom tools: " + toolResult.getErrorMessages());
             }
             if (toolResult.hasWarnings()) {
                 this.plugin.getLogger().info("Warnings while loading custom tools: " + toolResult.getWarningMessages());
@@ -80,7 +81,9 @@ public class MineConfiguration {
         int totalRanks = this.profiles.values().stream()
             .mapToInt(profile -> profile.rankSettings.size())
             .sum();
-        this.plugin.getLogger().info("Loaded " + this.profiles.size() + " profile(s) with " + totalRanks + " rank definition(s) for EzMine");
+        this.plugin.getLogger().info(
+            "Loaded " + this.profiles.size() + " profile(s) with " + totalRanks
+                + " rank definition(s) for EzMine");
     }
 
     public CustomTextureSettings getCustomTextureSettings() {
@@ -111,7 +114,9 @@ public class MineConfiguration {
         return this.defaultProfileName;
     }
 
-    public AppliedSettings resolveSettings(Player player, Material material, int skillLevel, boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
+    public AppliedSettings resolveSettings(
+            Player player, Material material, int skillLevel,
+            boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
         RankSettings rank = this.resolveRank(player, skillLevel, enforceSkillRequirement, profileName, luckPermsGroup);
         if (rank == null) {
             return AppliedSettings.DEFAULT;
@@ -119,7 +124,9 @@ public class MineConfiguration {
         return rank.appliedSettings(material);
     }
 
-    public String resolveRankName(Player player, int skillLevel, boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
+    public String resolveRankName(
+            Player player, int skillLevel,
+            boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
         RankSettings rank = this.resolveRank(player, skillLevel, enforceSkillRequirement, profileName, luckPermsGroup);
         return rank != null ? rank.name() : "default";
     }
@@ -152,7 +159,9 @@ public class MineConfiguration {
         return this.oreSearcherSettings;
     }
     
-    private RankSettings resolveRank(Player player, int skillLevel, boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
+    private RankSettings resolveRank(
+            Player player, int skillLevel,
+            boolean enforceSkillRequirement, String profileName, String luckPermsGroup) {
         ProfileSettings profile = this.getProfile(profileName);
         if (profile == null || profile.rankOrder.isEmpty()) {
             return null;
@@ -163,9 +172,13 @@ public class MineConfiguration {
             if (rank == null) {
                 continue;
             }
-            if ((rank.permission() == null || rank.permission().trim().isEmpty() || player.hasPermission(rank.permission()))
+            if ((rank.permission() == null || rank.permission().trim().isEmpty()
+                        || player.hasPermission(rank.permission()))
                     && rank.meetsSkillRequirement(skillLevel, enforceSkillRequirement)
-                    && rank.meetsLuckPermsRequirement(luckPermsGroup, this.luckPermsGroupPermissionPrefix, this.useLuckPermsGroup, player)) {
+                    && rank.meetsLuckPermsRequirement(
+                        luckPermsGroup,
+                        this.luckPermsGroupPermissionPrefix,
+                        this.useLuckPermsGroup, player)) {
                 return rank;
             }
         }
@@ -267,7 +280,8 @@ public class MineConfiguration {
         return map;
     }
 
-    private Map<String, ProfileSettings> parseProfiles(FileConfiguration settingsConfiguration, FileConfiguration ranksConfiguration) {
+    private Map<String, ProfileSettings> parseProfiles(
+            FileConfiguration settingsConfiguration, FileConfiguration ranksConfiguration) {
         Map<String, ProfileSettings> parsedProfiles = new LinkedHashMap<>();
         ConfigurationSection profilesSection = ranksConfiguration.getConfigurationSection("profiles");
         if (profilesSection != null) {
@@ -284,7 +298,8 @@ public class MineConfiguration {
                 if (parsedRanks.isEmpty()) {
                     parsedRanks.put("default", RankSettings.createDefault());
                 }
-                List<String> rankOrder = this.parseRankOrder(profileSection, settingsConfiguration, parsedRanks.keySet());
+                List<String> rankOrder = this.parseRankOrder(
+                    profileSection, settingsConfiguration, parsedRanks.keySet());
                 if (rankOrder.isEmpty()) {
                     rankOrder = new ArrayList<>(parsedRanks.keySet());
                 }
@@ -335,9 +350,13 @@ public class MineConfiguration {
             String luckPermsGroup = rankSection.getString("luckperms-group", "").trim();
             String luckPermsPermission = rankSection.getString("luckperms-permission", "").trim();
 
-            Map<Material, BlockOverride> overrides = this.parseOverrides(rankSection.getConfigurationSection("block-overrides"));
+            Map<Material, BlockOverride> overrides =
+                this.parseOverrides(rankSection.getConfigurationSection("block-overrides"));
 
-            parsedRanks.put(key, new RankSettings(key, permission, minimumSkillLevel, dropMultiplier, autoSmelt, fortuneEnabled, experienceMultiplier, overrides, luckPermsGroup, luckPermsPermission));
+            parsedRanks.put(key, new RankSettings(
+                key, permission, minimumSkillLevel, dropMultiplier,
+                autoSmelt, fortuneEnabled, experienceMultiplier,
+                overrides, luckPermsGroup, luckPermsPermission));
         }
 
         return parsedRanks;
@@ -361,7 +380,8 @@ public class MineConfiguration {
             }
 
             Double dropMultiplier = section.isSet("drop-multiplier") ? section.getDouble("drop-multiplier") : null;
-            Double experienceMultiplier = section.isSet("experience-multiplier") ? section.getDouble("experience-multiplier") : null;
+            Double experienceMultiplier = section.isSet("experience-multiplier")
+                ? section.getDouble("experience-multiplier") : null;
             Boolean autoSmelt = section.isSet("auto-smelt") ? section.getBoolean("auto-smelt") : null;
             Boolean fortune = section.isSet("fortune") ? section.getBoolean("fortune") : null;
 
@@ -370,7 +390,9 @@ public class MineConfiguration {
         return overrides;
     }
 
-    private List<String> parseRankOrder(ConfigurationSection profileSection, FileConfiguration configuration, Set<String> configuredRanks) {
+    private List<String> parseRankOrder(
+            ConfigurationSection profileSection, FileConfiguration configuration,
+            Set<String> configuredRanks) {
         List<String> definedOrder = Collections.emptyList();
         if (profileSection != null) {
             definedOrder = profileSection.getStringList("rank-order");
@@ -452,7 +474,9 @@ public class MineConfiguration {
         }
 
         if (configuredDefault != null && !parsedProfiles.isEmpty()) {
-            this.plugin.getLogger().warning("Default profile '" + configuredDefault + "' is not defined in ranks.yml. Falling back to first configured profile.");
+            this.plugin.getLogger().warning(
+                "Default profile '" + configuredDefault
+                    + "' is not defined in ranks.yml. Falling back to first configured profile.");
         }
 
         if (!parsedProfiles.isEmpty()) {

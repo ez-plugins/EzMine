@@ -124,8 +124,8 @@ Operators can distribute tools directly with:
 /ezmine tool <id> [player]
 ```
 
-- `<id>` — the tool key from `tools.yml` (e.g. `quarry-hammer`)
-- `[player]` — optional target player; defaults to the command sender
+- `<id>` - the tool key from `tools.yml` (e.g. `quarry-hammer`)
+- `[player]` - optional target player; defaults to the command sender
 
 Permission: `ezmine.custom-tool` (default: `op`)
 
@@ -148,7 +148,7 @@ Common messages and their fixes:
 | Message | Fix |
 |---------|-----|
 | `Missing material for custom tool <id>` | Set a valid Bukkit `Material` name. |
-| `Unknown material <name>` | Correct the material name — it must match a `Material` enum value exactly. |
+| `Unknown material <name>` | Correct the material name - must match a `Material` enum value exactly. |
 | `Unknown action '<action>'` | Use a built-in action (`3x3`, `auto-smelt`, `ore-searcher`) or a defined `@group`. |
 | `Duplicate custom tool id after normalization` | Tool IDs are case-insensitive; ensure each key is unique. |
 | `custom-model-data must be zero or positive` | Use a non-negative integer. |

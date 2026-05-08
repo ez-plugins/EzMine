@@ -43,7 +43,8 @@ public class EzMineCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to do that.");
                 return true;
             }
-            sender.sendMessage(ChatColor.GOLD + "EzMine " + ChatColor.WHITE + this.plugin.getDescription().getVersion());
+            sender.sendMessage(ChatColor.GOLD + "EzMine "
+                + ChatColor.WHITE + this.plugin.getDescription().getVersion());
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 MineConfiguration configuration = this.plugin.getMineConfiguration();
@@ -70,7 +71,8 @@ public class EzMineCommand implements CommandExecutor, TabCompleter {
                 String luckPermsGroup = luckyPerms != null && luckyPerms.isEnabled()
                     ? luckyPerms.getPrimaryGroup(player).orElse(null)
                     : null;
-                String rankName = configuration.resolveRankName(player, skillLevel, enforceSkill, profileName, luckPermsGroup);
+                String rankName = configuration.resolveRankName(
+                    player, skillLevel, enforceSkill, profileName, luckPermsGroup);
                 sender.sendMessage(ChatColor.GRAY + "Active rank: " + ChatColor.AQUA + rankName);
                 if (enforceSkill) {
                     sender.sendMessage(ChatColor.GRAY + "Mining level: " + ChatColor.GREEN + skillLevel);
@@ -115,7 +117,8 @@ public class EzMineCommand implements CommandExecutor, TabCompleter {
             sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label + " tool <id> [player]");
             Set<String> keys = tools.getTools().keySet();
             if (!keys.isEmpty()) {
-                sender.sendMessage(ChatColor.GRAY + "Available tools: " + ChatColor.AQUA + String.join(ChatColor.GRAY + ", " + ChatColor.AQUA, keys));
+                sender.sendMessage(ChatColor.GRAY + "Available tools: "
+                    + ChatColor.AQUA + String.join(ChatColor.GRAY + ", " + ChatColor.AQUA, keys));
             }
             return true;
         }

@@ -8,8 +8,8 @@ All notable changes to EzMine are documented here.
 
 ### Breaking changes
 
-- **Java 21 required.** The minimum supported Java version has been raised from 8 to 21.
-- **Parent POM removed.** EzMine is now fully standalone — the `com.skyblockexp:EzTree-parent`
+- **Java 25 required.** The minimum supported Java version has been raised from 8 to 25.
+- **Parent POM removed.** EzMine is now fully standalone - the `com.skyblockexp:EzTree-parent`
   parent POM dependency has been eliminated. All repositories and build properties are defined
   directly in `pom.xml`.
 - **EzSkills 2.0+ required.** The reflection-based EzSkills adapter has been removed. EzMine
@@ -30,7 +30,7 @@ All notable changes to EzMine are documented here.
 ### Changed
 
 - `EzSkillsIntegration` replaced reflection with direct `EzSkillsAPI` calls.
-- `pom.xml` updated to version `2.0.0`; `maven.compiler.release` set to `21`.
+- `pom.xml` updated to version `2.0.0`; `maven.compiler.release` set to `25`.
 - Spigot API version updated to `1.21.4-R0.1-SNAPSHOT`.
 
 ---

@@ -2,8 +2,6 @@ package com.skyblockexp.ezmine.config;
 
 import com.skyblockexp.ezmine.EzMine;
 import com.skyblockexp.ezmine.util.BukkitCompatibility;
-import com.skyblockexp.ezmine.config.ConfigurationReloadResult;
-import com.skyblockexp.ezmine.config.AllowedActions;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -63,7 +61,8 @@ public class CustomToolConfiguration {
 
         this.shopSettings = CustomToolShopSettings.from(section.getConfigurationSection("shop"));
 
-        Map<String, List<String>> actionGroups = this.parseActionGroups(section.getConfigurationSection("actions"), result);
+        Map<String, List<String>> actionGroups =
+            this.parseActionGroups(section.getConfigurationSection("actions"), result);
         Map<String, CustomToolDefinition> parsedTools = new LinkedHashMap<>();
         Map<Material, List<CustomToolDefinition>> byMaterial = new HashMap<>();
         Set<String> seenIds = new HashSet<>();
@@ -76,7 +75,8 @@ public class CustomToolConfiguration {
 
             String normalizedId = key.toLowerCase(Locale.ROOT);
             if (!seenIds.add(normalizedId)) {
-                String msg = "Duplicate custom tool id after normalization: " + normalizedId + " (original: " + key + ")";
+                String msg = "Duplicate custom tool id after normalization: "
+                    + normalizedId + " (original: " + key + ")";
                 this.plugin.getLogger().warning(msg);
                 result.addError(msg);
                 continue;
@@ -136,7 +136,8 @@ public class CustomToolConfiguration {
             // validate shop fields
             int maxSlots = this.shopSettings.getRows() * 9;
             if (shopSlot < -1 || shopSlot >= maxSlots) {
-                String msg = "shop.slot out of range for custom tool " + key + ". slot=" + shopSlot + " max=" + (maxSlots - 1);
+                String msg = "shop.slot out of range for custom tool " + key
+                + ". slot=" + shopSlot + " max=" + (maxSlots - 1);
                 this.plugin.getLogger().warning(msg);
                 result.addWarning(msg);
                 shopSlot = -1; // allow auto-resolve
@@ -210,7 +211,8 @@ public class CustomToolConfiguration {
         return result;
     }
 
-    private Map<String, List<String>> parseActionGroups(ConfigurationSection actionsSection, ConfigurationReloadResult result) {
+    private Map<String, List<String>> parseActionGroups(
+            ConfigurationSection actionsSection, ConfigurationReloadResult result) {
         if (actionsSection == null) {
             return Collections.emptyMap();
         }
@@ -244,7 +246,9 @@ public class CustomToolConfiguration {
         return groups.isEmpty() ? Collections.emptyMap() : Collections.unmodifiableMap(groups);
     }
 
-    private Set<String> resolveActions(List<String> configuredActions, Map<String, List<String>> actionGroups, ConfigurationReloadResult result) {
+    private Set<String> resolveActions(
+            List<String> configuredActions, Map<String, List<String>> actionGroups,
+            ConfigurationReloadResult result) {
         if (configuredActions == null || configuredActions.isEmpty()) {
             return Collections.emptySet();
         }
