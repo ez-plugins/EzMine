@@ -4,6 +4,23 @@ All notable changes to EzMine are documented here.
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **Vein miner action** — New `vein-miner` custom tool action. When active, mining any
+  tracked block automatically mines the entire connected vein of the same material in one
+  swing. Uses a BFS flood-fill across the six face-connected neighbours.
+  - Configurable via `settings.actions.vein-miner`: `enabled` flag and `max-blocks`
+    (default `64`, hard cap `512`).
+  - Fully compatible with area mining, auto-smelt, ore-searcher, all rank drop/XP
+    multipliers, and WorldGuard region checks.
+  - Built-in `vein-mining` action group and `vein-pickaxe` example tool added to
+    `tools.yml`.
+  - `prison-master` combo action group now includes `vein-mining` by default.
+
+---
+
 ## [2.0.0] - 2025-05-08
 
 ### Breaking changes

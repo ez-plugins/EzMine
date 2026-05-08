@@ -22,7 +22,9 @@ No custom block mechanics required.
 - **Block-level overrides** - fine-tune individual materials (e.g. double drops on ancient debris)
   while keeping global rank defaults in place.
 - **Custom tools** - distribute bespoke pickaxes with scripted actions: 3x3 area mining,
-  instant auto-smelt, and ore-searcher particle hints.
+  instant auto-smelt, ore-searcher particle hints, and vein mining.
+- **Vein miner** - mine an entire connected ore vein in one swing. A BFS flood-fill finds
+  all face-adjacent blocks of the same material up to a configurable `max-blocks` limit.
 - **Pickaxe shop** - let players purchase custom tools from a GUI shop backed by optional [Vault](https://www.spigotmc.org/resources/vault.34315/) economy.
 - **[EzSkills](https://modrinth.com/plugin/ezskills) integration** - gate ranks behind EzSkills mining levels and award EzSkills XP
   per block broken, with optional per-world skill overrides.
