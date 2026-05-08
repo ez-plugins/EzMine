@@ -1,5 +1,5 @@
 name: EzMine
-main: com.skyblockexp.ezmine.EzMine
+main: com.github.ezplugins.ezmine.EzMine
 version: ${project.version}
 author: Shadow48402
 api-version: '1.13'

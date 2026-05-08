@@ -67,12 +67,12 @@ jobs:
           HTTP=$(curl -s -o /dev/null -w "%{http_code}" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/orgs/ez-plugins/packages/maven/com.skyblockexp.EzMine/versions")
+            "https://api.github.com/orgs/ez-plugins/packages/maven/com.github.ez-plugins.EzMine/versions")
           if [[ "$HTTP" == "200" ]]; then
             EXISTS=$(curl -s \
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/orgs/ez-plugins/packages/maven/com.skyblockexp.EzMine/versions" \
+              "https://api.github.com/orgs/ez-plugins/packages/maven/com.github.ez-plugins.EzMine/versions" \
               | jq -r --arg v "$VERSION" 'any(.[]; .name == $v)')
             echo "exists=$EXISTS" >> "$GITHUB_OUTPUT"
           else
