@@ -1,0 +1,65 @@
+# You can either define ranks directly (legacy format) or group them into profiles.
+#
+# profiles:
+#   default:
+#     rank-order:
+#       - default
+#       - vip
+#     ranks:
+#       default:
+#         permission: ""
+#         minimum-skill-level: 0
+#         drop-multiplier: 1.0
+#         experience-multiplier: 1.0
+#         auto-smelt: false
+#         fortune: true
+#         luckperms-group: "default"
+#         luckperms-permission: "ezmine.rank.default"
+#   nether:
+#     rank-order:
+#       - default
+#     ranks:
+#       default:
+#         permission: ""
+#         minimum-skill-level: 0
+#         drop-multiplier: 1.2
+#         experience-multiplier: 1.2
+#         auto-smelt: true
+#         fortune: true
+ranks:
+  default:
+    permission: ""
+    minimum-skill-level: 0
+    drop-multiplier: 1.0
+    experience-multiplier: 1.0
+    auto-smelt: false
+    fortune: true
+    luckperms-group: ""
+    luckperms-permission: ""
+  vip:
+    permission: ezmine.rank.vip
+    minimum-skill-level: 15
+    drop-multiplier: 1.5
+    experience-multiplier: 1.25
+    auto-smelt: true
+    fortune: true
+    luckperms-group: ""
+    luckperms-permission: ""
+    block-overrides:
+      DIAMOND_ORE:
+        drop-multiplier: 2.0
+      DEEPSLATE_DIAMOND_ORE:
+        drop-multiplier: 2.0
+  elite:
+    permission: ezmine.rank.elite
+    minimum-skill-level: 30
+    drop-multiplier: 2.0
+    experience-multiplier: 1.5
+    auto-smelt: true
+    fortune: true
+    luckperms-group: ""
+    luckperms-permission: ""
+    block-overrides:
+      ANCIENT_DEBRIS:
+        drop-multiplier: 2.0
+        experience-multiplier: 2.0

@@ -1,0 +1,84 @@
+## Validation notes:
+# - EzMine validates `custom-tools` at load time and will log warnings/errors.
+# - Fatal errors (e.g., missing/unknown material or duplicate tool IDs) will disable custom-tools until fixed.
+# - Common messages:
+#   - "Missing material for custom tool <id>" — set a valid Bukkit `Material` name.
+#   - "Unknown material <name> for custom tool <id>" — fix the material name.
+#   - "Unknown action '<action>' for custom tool <id>" — use a supported action or define an action group.
+#   - "Duplicate custom tool id after normalization: <id>" — ensure unique tool IDs (case-insensitive).
+#   - "custom-model-data must be zero or positive for custom tool <id>" — provide a non-negative integer.
+#   - "shop.slot out of range for custom tool <id>" — pick a valid slot within shop rows.
+# See the docs for remediation steps.
+custom-tools:
+  enabled: true
+  shop:
+    enabled: true
+    title: "&8Pickaxe Shop"
+    rows: 3
+    currency-name: "coins"
+    vault:
+      enabled: false
+  actions:
+    area-mining:
+      actions:
+        - "3x3"
+    smelting:
+      actions:
+        - "auto-smelt"
+    ore-hunter:
+      actions:
+        - "ore-searcher"
+    prison-master:
+      actions:
+        - "@area-mining"
+        - "@smelting"
+        - "@ore-hunter"
+  tools:
+    quarry-hammer:
+      material: NETHERITE_PICKAXE
+      name: "&bQuarry Hammer"
+      lore:
+        - "&7Area mining tool for EzMine."
+        - "&7Right-click to activate its ability."
+      actions:
+        - "@area-mining"
+      shop:
+        visible: true
+        slot: 11
+        cost: 0
+    smelter-pickaxe:
+      material: DIAMOND_PICKAXE
+      name: "&6Smelter Pickaxe"
+      lore:
+        - "&7Auto-smelt mining tool."
+        - "&7Right-click to activate its ability."
+      actions:
+        - "@smelting"
+      shop:
+        visible: true
+        slot: 13
+        cost: 0
+    seeker-pickaxe:
+      material: IRON_PICKAXE
+      name: "&aSeeker Pickaxe"
+      lore:
+        - "&7Highlights nearby ores."
+        - "&7Right-click to activate its ability."
+      actions:
+        - "@ore-hunter"
+      shop:
+        visible: true
+        slot: 15
+        cost: 0
+    prison-master:
+      material: NETHERITE_PICKAXE
+      name: "&dPrison Master"
+      lore:
+        - "&7All EzMine actions in one tool."
+        - "&7Right-click to activate its abilities."
+      actions:
+        - "@prison-master"
+      shop:
+        visible: true
+        slot: 22
+        cost: 0

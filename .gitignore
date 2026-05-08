@@ -1,0 +1,21 @@
+# Build output
+target/
+dependency-reduced-pom.xml
+
+# IDE
+.idea/
+*.iml
+.eclipse/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local env
+.env

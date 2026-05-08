@@ -1,0 +1,37 @@
+name: EzMine
+main: com.skyblockexp.ezmine.EzMine
+version: ${project.version}
+author: Shadow48402
+api-version: '1.13'
+description: Rank aware mining enhancements for EzMine.
+commands:
+  ezmine:
+    description: Base command for EzMine.
+  pickaxe:
+    description: Open the EzMine pickaxe shop.
+permissions:
+  ezmine.command:
+    description: Allows viewing EzMine information.
+    default: true
+  ezmine.reload:
+    description: Allows reloading EzMine configuration.
+    default: op
+  ezmine.custom-tool:
+    description: Allows granting configured EzMine tools.
+    default: op
+  ezmine.pickaxe:
+    description: Allows access to the EzMine pickaxe shop.
+    default: true
+  ezmine.rank.vip:
+    description: Grants the VIP rank behavior in EzMine.
+    default: false
+  ezmine.rank.elite:
+    description: Grants the Elite rank behavior in EzMine.
+    default: false
+softdepend:
+  - "EzSkills"
+  - "mcMMO"
+  - "Vault"
+  - "EzEconomy"
+  - "WorldGuard"
+  - "LuckPerms"

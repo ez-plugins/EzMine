@@ -1,0 +1,62 @@
+// EzMine — dark/blue/white color scheme for just-the-docs
+//
+// Palette:
+//   Background   #141414  (body)
+//   Surface      #1a1e28  (sidebar, cards)
+//   Elevated     #1e2438  (code blocks, search, table rows)
+//   Border       #2a3050
+//   Text         #d0d0d0  (body)  /  #ffffff (headings)
+//   Accent       #40c8f4  (diamond blue — links, nav highlight, buttons)
+//   Accent dim   #2298c0  (hover state)
+
+$color-scheme: dark;
+
+// ── Surfaces ─────────────────────────────────────────────────────────────────
+$body-background-color: #141414;
+$sidebar-color:         #1a1e28;
+$feedback-color:        #181c26;
+
+// ── Typography ────────────────────────────────────────────────────────────────
+$body-text-color:    #d0d0d0;
+$body-heading-color: #ffffff;
+
+// ── Links & accent ────────────────────────────────────────────────────────────
+$link-color:        #40c8f4;
+$btn-primary-color: #40c8f4;
+
+// ── Borders ───────────────────────────────────────────────────────────────────
+$border-color: #2a3050;
+
+// ── Code ──────────────────────────────────────────────────────────────────────
+$code-background-color: #1e2438;
+
+// ── Tables ────────────────────────────────────────────────────────────────────
+$table-background-color: #181c26;
+
+// ── Search ────────────────────────────────────────────────────────────────────
+$search-background-color: #1e2438;
+$search-foreground-color:  #c0c0c0;
+$search-border-color:     #2a3050;
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+$base-button-color: #1e2438;
+
+// ── Syntax highlighting (Rouge) ───────────────────────────────────────────────
+// VS Code Dark+ inspired palette, readable on #1e2438 code background.
+.highlight {
+  code             { color: #d4d4d4; }              // base token text
+  .c, .c1, .cm     { color: #6a9955; font-style: italic; }  // comments
+  .k, .kd, .kn, .kp, .kr { color: #569cd6; font-weight: bold; } // keywords
+  .kc              { color: #569cd6; }              // keyword constants (true/false/null)
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .ss, .sx { color: #ce9178; } // strings
+  .m, .mi, .mf, .mh, .mo { color: #b5cea8; }       // numbers
+  .nc, .nd, .nn    { color: #4ec9b0; }              // class / type names
+  .nf, .na         { color: #dcdcaa; }              // function / attribute names
+  .n, .nx          { color: #9cdcfe; }              // general names / identifiers
+  .nb, .bp         { color: #569cd6; }              // built-in names
+  .nt              { color: #40c8f4; }              // tag names (YAML keys)
+  .o, .ow          { color: #d4d4d4; }              // operators
+  .p               { color: #d4d4d4; }              // punctuation
+  .gd              { color: #f44747; }              // diff deleted
+  .gi              { color: #6a9955; }              // diff inserted
+}

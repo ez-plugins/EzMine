@@ -1,0 +1,115 @@
+settings:
+  # Custom texture support for EzMine items (requires server resource pack)
+  custom-textures:
+    # Enable or disable custom textures for EzMine items
+    enabled: false
+    # URL to the server resource pack (leave empty to use server default)
+    resource-pack-url: ""
+    # Per-item texture keys (Minecraft model data or texture key)
+    # Example:
+    #   DIAMOND_PICKAXE: 1234567
+    #   IRON_ORE: "custom/iron_ore_texture"
+    item-textures: {}
+  # Define the order in which ranks should be evaluated. The first matching rank will be used.
+  rank-order:
+    - default
+    - vip
+    - elite
+  # Enable or disable EzMine per world.
+  worlds:
+    # Default behavior when a world is not listed in enabled/disabled.
+    default-enabled: true
+    # If set, only worlds listed here are eligible for EzMine.
+    enabled: []
+    # Worlds listed here will never use EzMine.
+    disabled: []
+  # Map worlds/regions to rank profiles (defined in ranks.yml profiles).
+  profiles:
+    # Default profile name when no overrides match.
+    default: default
+    # Per-world profile overrides.
+    worlds:
+      world: default
+    # Per-region profile overrides (requires WorldGuard).
+    regions:
+      global: {}
+      world: {}
+  worldguard:
+    # Enable WorldGuard profile routing for region-aware perks.
+    enabled: true
+    # Require players to be inside a WorldGuard region (other than __global__) to mine.
+    require-region: false
+    # Minimum region priority required for region checks.
+    minimum-priority: 0
+    # Optional allowlist/denylist of regions for EzMine mining.
+    # Use "global" for regions that apply to every world.
+    allowed-regions:
+      global: []
+      world: []
+    blocked-regions:
+      global: []
+      world: []
+  luckperms:
+    # Enable LuckPerms group integration for rank checks.
+    enabled: false
+    # Use primary group to resolve LuckPerms rank requirements.
+    use-primary-group: true
+    # Permission prefix used when not using primary groups.
+    group-permission-prefix: "group."
+  actions:
+    ore-searcher:
+      # Toggle the ore searcher action.
+      enabled: true
+      # Search radius (blocks) when mining.
+      range: 8
+      # Maximum ore hints per break.
+      max-results: 6
+      # Particle name used for hints.
+      particle: VILLAGER_HAPPY
+      # Particle count per hint.
+      particle-count: 3
+      # Distance from the player's eyes to render the hint.
+      particle-distance: 1.5
+      # Which materials trigger the hint search.
+      targets:
+        - COAL_ORE
+        - DEEPSLATE_COAL_ORE
+        - IRON_ORE
+        - DEEPSLATE_IRON_ORE
+        - COPPER_ORE
+        - DEEPSLATE_COPPER_ORE
+        - GOLD_ORE
+        - DEEPSLATE_GOLD_ORE
+        - NETHER_GOLD_ORE
+        - REDSTONE_ORE
+        - DEEPSLATE_REDSTONE_ORE
+        - LAPIS_ORE
+        - DEEPSLATE_LAPIS_ORE
+        - EMERALD_ORE
+        - DEEPSLATE_EMERALD_ORE
+        - DIAMOND_ORE
+        - DEEPSLATE_DIAMOND_ORE
+        - ANCIENT_DEBRIS
+  # List of blocks that EzMine should manage. Materials use Spigot enum names.
+  tracked-blocks:
+    # Use '*' to match all blocks (wildcard, default)
+    - "*"
+  # Toggle whether the default auto-smelt conversions are applied. Set to false to manage the list entirely below.
+  auto-smelt-use-defaults: true
+  # Define custom auto-smelt conversions. Keys are source materials (including drops), values are the smelted result.
+  auto-smelt-results:
+    IRON_ORE: IRON_INGOT
+    DEEPSLATE_IRON_ORE: IRON_INGOT
+    RAW_IRON: IRON_INGOT
+    GOLD_ORE: GOLD_INGOT
+    DEEPSLATE_GOLD_ORE: GOLD_INGOT
+    NETHER_GOLD_ORE: GOLD_NUGGET
+    RAW_GOLD: GOLD_INGOT
+    COPPER_ORE: COPPER_INGOT
+    DEEPSLATE_COPPER_ORE: COPPER_INGOT
+    RAW_COPPER: COPPER_INGOT
+    ANCIENT_DEBRIS: NETHERITE_SCRAP
+    COBBLESTONE: STONE
+    SAND: GLASS
+    RED_SAND: GLASS
+    WET_SPONGE: SPONGE

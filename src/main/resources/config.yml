@@ -1,0 +1,11 @@
+files:
+  # Primary settings for tracked blocks and auto-smelt behavior.
+  settings: settings.yml
+  # Rank definitions, permissions, and per-block overrides.
+  ranks: ranks.yml
+  # Custom tool definitions and actions.
+  tools: tools.yml
+  # EzSkills integration settings and experience tuning.
+  ezskills: ezskills.yml
+  # mcMMO integration settings and experience tuning.
+  mcmmo: mcmmo.yml

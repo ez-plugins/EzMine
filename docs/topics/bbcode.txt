@@ -1,0 +1,294 @@
+[B][SIZE=6]EzMine - Rank-Based Mining Perks, Auto-Smelt & Custom Tools for Minecraft 1.7-1.21+[/SIZE][/B]
+
+[B]EzMine[/B] lets you reward dedicated players with smarter ore drops, auto-smelting, and configurable experience boosts. Whether you're running a Skyblock network or a survival SMP, EzMine turns the grind into an engaging progression system without touching vanilla block mechanics.
+
+[B]Searching for a prison server that wants to partner with EzMine[/B] to make EzMine better. Please [URL='https://discord.gg/yWP95XfmBS']contact me in the Discord server[/URL].
+
+[IMG]https://img.shields.io/badge/Latest%20version-1.3.0-blue[/IMG]
+[IMG]https://img.shields.io/badge/Minecraft%20version-1.7 to 1.21%2B-blue[/IMG]
+[IMG]https://img.shields.io/badge/Requires-Java%2017+-brightgreen[/IMG]
+
+[B][SIZE=5]Feature highlights[/SIZE][/B]
+[LIST]
+[*][B]Permission-driven ranks[/B]: Configure any number of mining ranks with distinct drop multipliers, experience boosts, and auto-smelt behavior. Players automatically receive the first rank they have permission for ([ICODE]settings.rank-order[/ICODE]).
+[*][B]World/region profiles[/B]: Route different rank perks per world or WorldGuard region using profile mappings.
+[*][B]World toggles[/B]: Enable or disable EzMine per world so you can keep vanilla mining elsewhere.
+[*][B]Ore tracking[/B]: Limit EzMine to specific ores and blocks via [ICODE]settings.tracked-blocks[/ICODE] so regular blocks remain untouched.
+[IMG]https://i.ibb.co/0pJf5mBg/image.png[/IMG]
+[*][B]Smart auto-smelt[/B]: Convert ore drops to ingots (or custom outputs) instantly. Merge EzMine's defaults with your own recipes through [ICODE]settings.auto-smelt-results[/ICODE].
+[*][B]Fortune control[/B]: Disable fortune on a per-rank or per-block basis to keep progression balanced.
+[*][B]Block overrides[/B]: Fine-tune individual materials with custom multipliers or auto-smelt toggles while keeping global rank defaults.
+[*][B]Custom tools[/B]: Distribute bespoke pickaxes with scripted actions like 3×3 harvesting, ore searcher hints, and forced auto-smelt, all driven from configuration.
+[*][B]Pickaxe shop[/B]: Let players browse a GUI shop and purchase tools using optional Vault costs.
+[IMG]https://i.ibb.co/FLDDdGPx/image.png[/IMG]
+[*][B][URL='https://www.spigotmc.org/resources/1-7-1-21-ezskills-lightweight-rpg-skill-ability-framework.131061/']EzSkills[/URL]/mcMMO integration[/B]: Use external skills for rank gates and experience, with optional per-world progression overrides.
+[/LIST]
+
+[B][SIZE=5]Commands & permissions[/SIZE][/B]
+[table]
+[tr][th]Command[/th][th]Description[/th][th]Permission[/th][/tr]
+[tr][td][ICODE]/ezmine[/ICODE][/td][td]Show the plugin version and the caller's active rank.[/td][td][ICODE]ezmine.command[/ICODE] (default: [ICODE]true[/ICODE])[/td][/tr]
+[tr][td][ICODE]/ezmine reload[/ICODE][/td][td]Reload EzMine's configuration from disk.[/td][td][ICODE]ezmine.reload[/ICODE] (default: [ICODE]op[/ICODE])[/td][/tr]
+[tr][td][ICODE]/ezmine tool <id> [player][/ICODE][/td][td]Give a configured custom tool to yourself or another player.[/td][td][ICODE]ezmine.custom-tool[/ICODE] (default: [ICODE]op[/ICODE])[/td][/tr]
+[tr][td][ICODE]/pickaxe[/ICODE][/td][td]Open the pickaxe shop GUI.[/td][td][ICODE]ezmine.pickaxe[/ICODE] (default: [ICODE]true[/ICODE])[/td][/tr]
+[/table]
+
+Grant miners custom ranks with permission nodes like [ICODE]ezmine.rank.vip[/ICODE] or [ICODE]ezmine.rank.elite[/ICODE]. Players without a matching permission fall back to the [ICODE]default[/ICODE] rank.
+Need a special pickaxe? Give staff [ICODE]ezmine.custom-tool[/ICODE] so they can distribute the tools defined under [ICODE]custom-tools[/ICODE].
+
+[B][SIZE=5]Configuration cheat sheet[/SIZE][/B]
+[LIST]
+[*][ICODE]settings.rank-order[/ICODE] — Evaluate ranks from top to bottom. The first permission a player has wins.
+[*][ICODE]settings.worlds[/ICODE] — Enable/disable EzMine on specific worlds.
+[*][ICODE]settings.profiles[/ICODE] — Map worlds or WorldGuard regions to rank profiles.
+[*][ICODE]settings.actions.ore-searcher[/ICODE] — Configure the ore searcher action particles and targets.
+[*][ICODE]settings.tracked-blocks[/ICODE] — Material list (Spigot enum names) that EzMine should manage.
+[*][ICODE]settings.auto-smelt-use-defaults[/ICODE] — Merge or replace EzMine's built-in smelt conversions.
+[*][ICODE]ranks.<name>.drop-multiplier[/ICODE] — Multiply the quantity of each drop.
+[*][ICODE]ranks.<name>.experience-multiplier[/ICODE] — Adjust mining XP reward.
+[*][ICODE]ranks.<name>.auto-smelt[/ICODE] — Toggle instant smelting for the rank.
+[*][ICODE]ranks.<name>.fortune[/ICODE] — Allow or disable fortune while calculating drops.
+[*][ICODE]ranks.<name>.block-overrides[/ICODE] — Per-material tweaks (drop, XP, auto-smelt, fortune) that supersede the rank defaults.
+[*][ICODE]profiles.<name>[/ICODE] — Optional rank profile groupings for world/region-specific perks.
+[*][ICODE]custom-tools[/ICODE] — Enable bespoke pickaxes with metadata, lore, and a list of actions each time they are activated.
+[*][ICODE]custom-tools.shop[/ICODE] — Configure the pickaxe shop GUI (title, rows, Vault economy usage).
+[*][ICODE]ezskills.per-world[/ICODE] — Optional per-world skill overrides for [URL='https://www.spigotmc.org/resources/1-7-1-21-ezskills-lightweight-rpg-skill-ability-framework.131061/']EzSkills[/URL] progression.
+[*][ICODE]mcmmo.per-world[/ICODE] — Optional per-world skill overrides for mcMMO progression.
+[/LIST]
+
+[B][SIZE=5]Quick start[/SIZE][/B]
+[LIST=1]
+[*][B]Drop EzMine.jar[/B] into your server's [ICODE]plugins[/ICODE] folder and restart.
+[*][B]Assign permissions[/B] using LuckPerms, PermissionsEx, or your favorite manager.
+[*][B]Tweak[/B] [ICODE]config.yml[/ICODE] with your rank order, tracked blocks, and smelting preferences.
+[*][B]Run[/B] [ICODE]/ezmine reload[/ICODE] to apply changes live.
+[/LIST]
+
+[B][SIZE=5]Integration highlights[/SIZE][/B]
+[LIST]
+[*][B]Vault economy[/B]: Power the pickaxe shop and tool upgrades with any Vault-compatible economy. Pair with [URL='https://www.spigotmc.org/resources/1-7-1-21-ezeconomy-modern-vault-economy-plugin-for-minecraft-servers.130975/']EzEconomy[/URL] for a streamlined setup.
+[*][B]WorldGuard[/B]: Target specific mines or regions with unique perk profiles through [ICODE]settings.profiles[/ICODE] mappings.
+[*][B]EzSkills[/B]: Gate ranks behind skill levels and apply per-world progression rules. Configure overrides under [ICODE]ezskills.per-world[/ICODE].
+[*][B]mcMMO[/B]: Use mcMMO mining levels for rank requirements and optionally award mcMMO XP with [ICODE]mcmmo.yml[/ICODE].
+[*][B]Permissions managers[/B]: LuckPerms, PermissionsEx, and other managers control rank access via [ICODE]ezmine.rank.<name>[/ICODE] nodes.
+[*][B]LuckPerms integration[/B]: Optionally integrate with [URL='https://luckperms.net/']LuckPerms[/URL] for advanced group-based rank assignment. When enabled in [ICODE]settings.luckperms[/ICODE], EzMine can use a player's primary LuckPerms group (or a custom group permission prefix) to determine their mining rank. This allows seamless synchronization between your server's group system and EzMine's rank progression. See the [ICODE]settings.luckperms[/ICODE] section in your configuration for options like [ICODE]enabled[/ICODE], [ICODE]use-primary-group[/ICODE], and [ICODE]group-permission-prefix[/ICODE].
+[/LIST]
+
+[B][SIZE=5]Prison server setup guide[/SIZE][/B]
+Use EzMine as the backbone of your prison mine progression without rewriting your entire economy.
+[LIST=1]
+[*][B]Define mine worlds and regions[/B]: Map each mine to a profile with [ICODE]settings.profiles.worlds[/ICODE] or [ICODE]settings.profiles.regions[/ICODE] so every mine can have distinct rank perks and multipliers.
+[*][B]Create rank ladders[/B]: Set [ICODE]settings.rank-order[/ICODE] to match your prison ranks (A → Z, etc.). Assign permissions like [ICODE]ezmine.rank.block_a[/ICODE], [ICODE]ezmine.rank.block_b[/ICODE], and so on.
+[*][B]Tune payouts[/B]: Use [ICODE]drop-multiplier[/ICODE] and [ICODE]experience-multiplier[/ICODE] to control ore output and XP. Combine with auto-smelt to align drops with your economy pricing.
+[*][B]Control fortune[/B]: Disable fortune for early ranks to slow progression, then enable it later for higher tiers.
+[*][B]Offer premium tools[/B]: Configure [ICODE]custom-tools.shop[/ICODE] with Vault pricing so players can buy 3×3 or auto-smelt pickaxes as upgrades.
+[*][B]Protect vanilla worlds[/B]: Disable EzMine in non-prison worlds using [ICODE]settings.worlds[/ICODE] to keep survival areas untouched.
+[/LIST]
+
+[B][SIZE=5]Sample rank setup[/SIZE][/B]
+[spoiler=Three-tier mining progression]
+[code=YAML]
+settings:
+  rank-order:
+    - default
+    - vip
+    - elite
+  tracked-blocks:
+    - COAL_ORE
+    - DEEPSLATE_IRON_ORE
+    - GOLD_ORE
+    - DIAMOND_ORE
+    - ANCIENT_DEBRIS
+ranks:
+  default:
+    permission: ""
+    drop-multiplier: 1.0
+    experience-multiplier: 1.0
+    auto-smelt: false
+    fortune: true
+  vip:
+    permission: ezmine.rank.vip
+    drop-multiplier: 1.5
+    experience-multiplier: 1.25
+    auto-smelt: true
+    fortune: true
+    block-overrides:
+      DIAMOND_ORE:
+        drop-multiplier: 2.0
+  elite:
+    permission: ezmine.rank.elite
+    drop-multiplier: 2.0
+    experience-multiplier: 1.5
+    auto-smelt: true
+    fortune: true
+    block-overrides:
+      ANCIENT_DEBRIS:
+        drop-multiplier: 2.0
+        experience-multiplier: 2.0
+[/code]
+[/spoiler]
+
+
+[B]LuckPerms setup example[/B]
+
+If you want EzMine to use LuckPerms groups for rank assignment, enable the integration in your config:
+
+[code=YAML]
+settings:
+  luckperms:
+    enabled: true
+    use-primary-group: true  # Use the player's primary LuckPerms group
+    group-permission-prefix: "group."  # Default prefix for group permissions
+  rank-order:
+    - default
+    - vip
+    - elite
+ranks:
+  default:
+    permission: "group.default"
+    drop-multiplier: 1.0
+    experience-multiplier: 1.0
+    auto-smelt: false
+    fortune: true
+  vip:
+    permission: "group.vip"
+    drop-multiplier: 1.5
+    experience-multiplier: 1.25
+    auto-smelt: true
+    fortune: true
+  elite:
+    permission: "group.elite"
+    drop-multiplier: 2.0
+    experience-multiplier: 1.5
+    auto-smelt: true
+    fortune: true
+[/code]
+
+With this setup, players will be assigned a mining rank based on their LuckPerms primary group (e.g., [ICODE]default[/ICODE], [ICODE]vip[/ICODE], or [ICODE]elite[/ICODE]). You can customize the [ICODE]group-permission-prefix[/ICODE] if your server uses a different group node format.
+
+
+[B][SIZE=5]World & region profiles[/SIZE][/B]
+Use profiles to run different mining perks per world or WorldGuard region:
+[code=YAML]
+# settings.yml
+settings:
+  profiles:
+    default: default
+    worlds:
+      world_nether: nether
+    regions:
+      world:
+        vip_mine: vip
+[/code]
+[code=YAML]
+# ranks.yml
+profiles:
+  default:
+    rank-order:
+      - default
+      - vip
+    ranks:
+      default:
+        permission: ""
+        drop-multiplier: 1.0
+        experience-multiplier: 1.0
+        auto-smelt: false
+        fortune: true
+      vip:
+        permission: ezmine.rank.vip
+        drop-multiplier: 1.5
+        experience-multiplier: 1.25
+        auto-smelt: true
+        fortune: true
+  nether:
+    rank-order:
+      - default
+    ranks:
+      default:
+        permission: ""
+        drop-multiplier: 1.2
+        experience-multiplier: 1.2
+        auto-smelt: true
+        fortune: true
+[/code]
+
+[B][SIZE=5]mcMMO integration[/SIZE][/B]
+Enable [ICODE]mcmmo.yml[/ICODE] to use mcMMO mining levels for rank requirements and (optionally) award mcMMO experience. If both EzSkills and mcMMO are enabled, EzSkills takes priority.
+[code=YAML]
+mcmmo:
+  enabled: true
+  skill: MINING
+  per-world:
+    enabled: true
+    skill-overrides:
+      world: MINING
+      world_nether: MINING_NETHER
+  experience:
+    base-per-block: 2.0
+    apply-rank-multiplier: true
+    material-overrides:
+      ANCIENT_DEBRIS: 12.0
+[/code]
+
+[B][SIZE=5]Custom tools[/SIZE][/B]
+Define custom mining tools in [ICODE]config.yml[/ICODE] to bundle metadata and scripted actions:
+[code=YAML]
+custom-tools:
+  enabled: true
+  shop:
+    enabled: true
+    title: "&8Pickaxe Shop"
+    rows: 3
+    currency-name: "coins"
+    vault:
+      enabled: false
+  tools:
+    quarry-hammer:
+      material: NETHERITE_PICKAXE
+      name: "&bQuarry Hammer"
+      lore:
+        - "&7Configured hammer for EzMine."
+        - "&7Right-click to activate its abilities."
+      actions:
+        - "3x3"
+        - "auto-smelt"
+        - "ore-searcher"
+      shop:
+        visible: true
+        slot: 13
+        cost: 0
+[/code]
+
+Players right-click the configured item to activate its actions until they switch tools. Supported actions include:
+[LIST]
+[*][ICODE]3x3[/ICODE] — Break a 3×3 area centred on the target block (horizontal plane).
+[*][ICODE]auto-smelt[/ICODE] — Force smelting even if the player's rank would normally drop raw ores.
+[*][ICODE]ore-searcher[/ICODE] — Show hint particles pointing toward nearby ores while mining.
+[/LIST]
+
+[B][SIZE=4]Configuration validation[/SIZE][/B]
+When EzMine loads `custom-tools` it performs sanity checks and reports problems in the server log. Fatal errors (such as a missing or unknown `material`, or duplicate tool IDs after normalization) will disable `custom-tools` until you fix them.
+
+Watch for these common messages and how to fix them:
+- "Missing material for custom tool <id>": add a valid Spigot `Material` name (e.g. `NETHERITE_PICKAXE`).
+- "Unknown material <name> for custom tool <id>": correct the material name or use a supported material.
+- "Duplicate custom tool id after normalization: <id>": ensure tool keys are unique when lowercased.
+- "Unknown action '<action>' for custom tool <id>": use a built-in action (e.g. `3x3`, `auto-smelt`, `ore-searcher`) or define it in the `actions` section.
+- "custom-model-data must be zero or positive for custom tool <id>": use a non-negative integer for `custom-model-data`.
+- "shop.slot out of range for custom tool <id>": choose a `slot` between `0` and `rows*9 - 1`.
+
+If you see warnings (non-fatal issues), EzMine will still load the tool but the behaviour may differ. After fixing the YAML, run `/ezmine reload` to re-apply the configuration.
+
+Distribute these tools with [ICODE]/ezmine tool <id> [player][/ICODE] or bundle them into starter kits.
+
+[B][SIZE=5]Why admins love EzMine[/SIZE][/B]
+[LIST]
+[*][B]Minimal setup[/B]: Ships with sensible defaults for all major ores and auto-smelt conversions.
+[*][B]Economy friendly[/B]: Combine rank-specific multipliers with your economy plugins to price upgrades. Pair with [URL='https://www.spigotmc.org/resources/1-7-1-21-ezeconomy-modern-vault-economy-plugin-for-minecraft-servers.130975/']EzEconomy[/URL] or any Vault-compatible economy.
+[*][B]Low overhead[/B]: Only hooks tracked blocks and leaves everything else untouched for vanilla behavior.
+[/LIST]
+
+Ready to bring prestige mining to your world? Install EzMine and let your players feel the climb from stone pickaxes to elite miners in minutes.
+
+[B][SIZE=5]Need help?[/SIZE][/B]
+Have questions or feedback? Visit our SpigotMC discussion thread or [URL='https://discord.gg/yWP95XfmBS']join the EzMine Discord server[/URL] for direct support and release updates.

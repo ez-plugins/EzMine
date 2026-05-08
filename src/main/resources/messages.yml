@@ -1,0 +1,21 @@
+# (==================== EzMine ====================)
+# Messages configuration
+
+# Tool-related messages
+tool:
+  given: "&aYou have received the EzMine tool '%tool_id%'!"
+  given_to_other: "&aGave '%tool_id%' to %player_name%."
+  not_found: "&cThe specified tool '%tool_id%' does not exist."
+  player_offline: "&cPlayer '%player_name%' is not online."
+  disabled: "&cCustom tools are disabled in the configuration."
+  usage: "&eUsage: /%label% tool <id> [player]"
+  available: "&7Available tools: &b%tools%"
+
+# Permission messages
+permission:
+  denied: "&cYou do not have permission to do that."
+
+# Command messages
+command:
+  reload_success: "&aEzMine configuration reloaded."
+  console_player_required: "&cYou must specify a player when running this command from console."

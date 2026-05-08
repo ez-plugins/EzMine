@@ -1,0 +1,32 @@
+name: Docs CI
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "docs/**/*.md *.md"
+          config: ".markdownlint.yml"
+
+  javadoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
+          cache: maven
+
+      - name: Generate Javadoc
+        run: mvn -B -DskipTests javadoc:aggregate

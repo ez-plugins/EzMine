@@ -1,0 +1,19 @@
+mcmmo:
+  # Enable mcMMO driven progression for EzMine.
+  enabled: false
+  # The mcMMO skill that controls rank unlocks and experience rewards.
+  skill: MINING
+  per-world:
+    # Toggle separate skill tracking per world.
+    enabled: false
+    # Optional world -> skill overrides (skill names are mcMMO enums).
+    skill-overrides:
+      world: MINING
+  experience:
+    # Base experience awarded per tracked block broken.
+    base-per-block: 0.0
+    # Apply the rank specific experience multiplier when rewarding mcMMO experience.
+    apply-rank-multiplier: true
+    # Optional block specific overrides (material -> base experience amount).
+    material-overrides:
+      ANCIENT_DEBRIS: 12.0
