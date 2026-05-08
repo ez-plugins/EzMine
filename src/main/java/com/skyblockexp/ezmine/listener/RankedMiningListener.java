@@ -101,9 +101,11 @@ public class RankedMiningListener implements Listener {
         }
 
         String luckPermsGroup = this.resolveLuckPermsGroup(player);
-        MineConfiguration.AppliedSettings settings = this.configuration.resolveSettings(player, material, skillLevel, enforceSkillRequirements, profileName, luckPermsGroup);
+        MineConfiguration.AppliedSettings settings = this.configuration.resolveSettings(
+            player, material, skillLevel, enforceSkillRequirements, profileName, luckPermsGroup);
 
-        Set<String> activeActions = this.customToolManager != null ? this.customToolManager.getActiveActions(player.getUniqueId()) : Collections.emptySet();
+        Set<String> activeActions = this.customToolManager != null
+            ? this.customToolManager.getActiveActions(player.getUniqueId()) : Collections.emptySet();
         boolean areaMining = activeActions.contains("3x3");
         boolean autoSmeltOverride = activeActions.contains("auto-smelt");
         boolean oreSearcher = activeActions.contains("ore-searcher");
@@ -222,7 +224,9 @@ public class RankedMiningListener implements Listener {
         return clone;
     }
 
-    private ItemStack processDrop(ItemStack originalDrop, Material sourceMaterial, MineConfiguration.AppliedSettings settings, boolean autoSmeltOverride) {
+    private ItemStack processDrop(
+            ItemStack originalDrop, Material sourceMaterial,
+            MineConfiguration.AppliedSettings settings, boolean autoSmeltOverride) {
         if (originalDrop == null) {
             return null;
         }

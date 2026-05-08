@@ -60,7 +60,9 @@ public class EzSkillsIntegration {
             } else if ("true".equals(rawValue) || "false".equals(rawValue)) {
                 enabledSetting = Boolean.parseBoolean(rawValue);
             } else {
-                this.plugin.getLogger().warning("Unknown ezskills.enabled value '" + enabledValue + "'. Expected true, false, or auto. Defaulting to auto-detect.");
+                this.plugin.getLogger().warning(
+                    "Unknown ezskills.enabled value '" + enabledValue
+                    + "'. Expected true, false, or auto. Defaulting to auto-detect.");
                 enabledSetting = null;
             }
         }
@@ -112,7 +114,10 @@ public class EzSkillsIntegration {
                 for (String key : overridesSection.getKeys(false)) {
                     Material material = BukkitCompatibility.matchMaterial(key);
                     if (material == null) {
-                        this.plugin.getLogger().log(Level.WARNING, "Unknown material in ezskills.experience.material-overrides: {0}", key);
+                        this.plugin.getLogger().log(
+                            Level.WARNING,
+                            "Unknown material in ezskills.experience.material-overrides: {0}",
+                            key);
                         continue;
                     }
 

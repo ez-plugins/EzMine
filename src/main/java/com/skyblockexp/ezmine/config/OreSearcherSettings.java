@@ -59,7 +59,9 @@ public class OreSearcherSettings {
         this.particle = particle;
         this.particleCount = particleCount;
         this.particleDistance = particleDistance;
-        this.targetMaterials = targetMaterials == null ? Collections.emptySet() : Collections.unmodifiableSet(new HashSet<>(targetMaterials));
+        this.targetMaterials = targetMaterials == null
+            ? Collections.emptySet()
+            : Collections.unmodifiableSet(new HashSet<>(targetMaterials));
     }
 
     public static OreSearcherSettings createDefault(EzMine plugin) {

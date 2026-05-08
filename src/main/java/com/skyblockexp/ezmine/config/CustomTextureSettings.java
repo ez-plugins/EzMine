@@ -57,7 +57,9 @@ public class CustomTextureSettings {
         if (itemSection != null) {
             for (String key : itemSection.getKeys(false)) {
                 Material mat = Material.matchMaterial(key);
-                if (mat == null) continue;
+                if (mat == null) {
+                    continue;
+                }
                 Object value = itemSection.get(key);
                 textures.put(mat, value);
             }
@@ -69,7 +71,8 @@ public class CustomTextureSettings {
      * Loads custom texture settings from both settings.yml and tools.yml.
      * toolsConfig takes precedence for custom tools.
      */
-    public static CustomTextureSettings fromMultipleConfigurations(FileConfiguration settingsConfig, FileConfiguration toolsConfig) {
+    public static CustomTextureSettings fromMultipleConfigurations(
+            FileConfiguration settingsConfig, FileConfiguration toolsConfig) {
         // Load from settings.yml
         CustomTextureSettings base = fromConfiguration(settingsConfig);
         // Merge/override with tools.yml if present
@@ -84,7 +87,9 @@ public class CustomTextureSettings {
         if (itemSection != null) {
             for (String key : itemSection.getKeys(false)) {
                 Material mat = Material.matchMaterial(key);
-                if (mat == null) continue;
+                if (mat == null) {
+                    continue;
+                }
                 Object value = itemSection.get(key);
                 textures.put(mat, value);
             }

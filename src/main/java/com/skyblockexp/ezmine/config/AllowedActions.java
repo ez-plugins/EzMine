@@ -10,6 +10,8 @@ import java.util.Set;
  */
 public final class AllowedActions {
 
+    private AllowedActions() {}
+
     private static final Set<String> ACTIONS;
 
     static {
@@ -27,7 +29,9 @@ public final class AllowedActions {
     }
 
     public static boolean isAllowed(String action) {
-        if (action == null) return false;
+        if (action == null) {
+            return false;
+        }
         return ACTIONS.contains(action.toLowerCase());
     }
 

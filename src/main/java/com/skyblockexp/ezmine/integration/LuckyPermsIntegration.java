@@ -31,7 +31,8 @@ public class LuckyPermsIntegration {
         ConfigurationSection section = configuration.getConfigurationSection("settings.luckperms");
         boolean configuredEnabled = section != null && section.getBoolean("enabled", false);
         this.usePrimaryGroup = section == null || section.getBoolean("use-primary-group", true);
-        this.groupPermissionPrefix = section == null ? "group." : section.getString("group-permission-prefix", "group.");
+        this.groupPermissionPrefix = section == null
+            ? "group." : section.getString("group-permission-prefix", "group.");
 
         if (!configuredEnabled) {
             return;

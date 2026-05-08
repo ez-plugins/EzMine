@@ -82,13 +82,20 @@ public class RankSettings {
     public MineConfiguration.AppliedSettings appliedSettings(Material material) {
         BlockOverride override = this.blockOverrides.get(material);
         if (override == null) {
-            return new MineConfiguration.AppliedSettings(this.dropMultiplier, this.autoSmelt, this.fortuneEnabled, this.experienceMultiplier);
+            return new MineConfiguration.AppliedSettings(
+                this.dropMultiplier, this.autoSmelt,
+                this.fortuneEnabled, this.experienceMultiplier);
         }
-        double resolvedDropMultiplier = override.dropMultiplier() != null ? override.dropMultiplier() : this.dropMultiplier;
-        boolean resolvedAutoSmelt = override.autoSmelt() != null ? override.autoSmelt() : this.autoSmelt;
-        boolean resolvedFortune = override.fortuneEnabled() != null ? override.fortuneEnabled() : this.fortuneEnabled;
-        double resolvedExperience = override.experienceMultiplier() != null ? override.experienceMultiplier() : this.experienceMultiplier;
-        return new MineConfiguration.AppliedSettings(resolvedDropMultiplier, resolvedAutoSmelt, resolvedFortune, resolvedExperience);
+        double resolvedDropMultiplier = override.dropMultiplier() != null
+            ? override.dropMultiplier() : this.dropMultiplier;
+        boolean resolvedAutoSmelt = override.autoSmelt() != null
+            ? override.autoSmelt() : this.autoSmelt;
+        boolean resolvedFortune = override.fortuneEnabled() != null
+            ? override.fortuneEnabled() : this.fortuneEnabled;
+        double resolvedExperience = override.experienceMultiplier() != null
+            ? override.experienceMultiplier() : this.experienceMultiplier;
+        return new MineConfiguration.AppliedSettings(
+            resolvedDropMultiplier, resolvedAutoSmelt, resolvedFortune, resolvedExperience);
     }
 
     public static RankSettings createDefault() {

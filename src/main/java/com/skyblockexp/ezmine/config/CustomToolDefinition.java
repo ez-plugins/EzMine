@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import com.skyblockexp.ezmine.config.ConfigurationReloadResult;
 
 public class CustomToolDefinition {
 
@@ -32,10 +31,15 @@ public class CustomToolDefinition {
                                 double shopCost) {
         this.id = Objects.requireNonNull(id, "id");
         this.material = Objects.requireNonNull(material, "material");
-        this.displayName = displayName != null && !displayName.trim().isEmpty() ? displayName : null;
-        this.lore = lore == null ? Collections.emptyList() : Collections.unmodifiableList(new java.util.ArrayList<>(lore));
+        this.displayName = displayName != null && !displayName.trim().isEmpty()
+            ? displayName : null;
+        this.lore = lore == null
+            ? Collections.emptyList()
+            : Collections.unmodifiableList(new java.util.ArrayList<>(lore));
         this.customModelData = customModelData;
-        this.actions = actions == null ? Collections.emptySet() : Collections.unmodifiableSet(new java.util.HashSet<>(actions));
+        this.actions = actions == null
+            ? Collections.emptySet()
+            : Collections.unmodifiableSet(new java.util.HashSet<>(actions));
         this.shopVisible = shopVisible;
         this.shopSlot = shopSlot;
         this.shopCost = Math.max(0.0D, shopCost);
@@ -136,14 +140,14 @@ public class CustomToolDefinition {
                 try {
                     meta.getClass().getMethod("setCustomModelData", Integer.class)
                         .invoke(meta, this.customModelData);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) { }
             } else if (customTextureSettings != null && customTextureSettings.isEnabled()) {
                 Object modelData = customTextureSettings.getTexture(this.material);
                 if (modelData instanceof Number) {
                     try {
                         meta.getClass().getMethod("setCustomModelData", Integer.class)
                             .invoke(meta, ((Number) modelData).intValue());
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) { }
                 }
             }
             itemStack.setItemMeta(meta);
