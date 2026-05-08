@@ -79,7 +79,7 @@ settings:
 ### Profiles
 
 Map worlds or WorldGuard regions to named rank profiles (defined in `ranks.yml`).
-This allows different rank tiers in different areas — for example, a harder prison mine
+This allows different rank tiers in different areas - for example, a harder prison mine
 profile or a creative-world profile with no perks.
 
 ```yaml
@@ -94,6 +94,9 @@ settings:
 ```
 
 ### WorldGuard
+
+[WorldGuard](https://modrinth.com/plugin/worldguard) lets you confine EzMine perks to specific
+regions or require players to stand inside a region before perks activate.
 
 ```yaml
 settings:
@@ -111,8 +114,8 @@ settings:
 
 ### LuckPerms
 
-When enabled, EzMine resolves a player's rank by their LuckPerms primary group or
-a configurable group permission prefix, in addition to the standard permission check.
+When enabled, EzMine resolves a player's rank by their [LuckPerms](https://modrinth.com/plugin/luckperms)
+primary group or a configurable group permission prefix, in addition to the standard permission check.
 
 ```yaml
 settings:
@@ -151,7 +154,7 @@ drop multipliers, auto-smelt, and XP rewards applied.
 ```yaml
 settings:
   tracked-blocks:
-    - "*"         # Wildcard — track every block
+    - "*"         # Wildcard - track every block
     # Or list specific materials:
     # - DIAMOND_ORE
     # - DEEPSLATE_DIAMOND_ORE
