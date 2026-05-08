@@ -90,6 +90,11 @@ settings:
         - DIAMOND_ORE
         - DEEPSLATE_DIAMOND_ORE
         - ANCIENT_DEBRIS
+    vein-miner:
+      # Toggle the vein-miner action.
+      enabled: true
+      # Maximum number of connected same-material blocks to mine in one swing (1-512).
+      max-blocks: 64
   # List of blocks that EzMine should manage. Materials use Spigot enum names.
   tracked-blocks:
     # Use '*' to match all blocks (wildcard, default)

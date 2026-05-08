@@ -20,6 +20,7 @@ public final class AllowedActions {
         s.add("3x3");
         s.add("auto-smelt");
         s.add("ore-searcher");
+        s.add("vein-miner");
         s.add("area-mining");
         s.add("smelting");
         s.add("ore-hunter");

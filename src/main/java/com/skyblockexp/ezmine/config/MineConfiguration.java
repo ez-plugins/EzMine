@@ -33,6 +33,7 @@ public class MineConfiguration {
     private String luckPermsGroupPermissionPrefix;
     private boolean useLuckPermsGroup;
     private OreSearcherSettings oreSearcherSettings;
+    private VeinMinerSettings veinMinerSettings;
     private WorldSettings worldSettings;
     private CustomTextureSettings customTextureSettings;
 
@@ -44,6 +45,7 @@ public class MineConfiguration {
         this.autoSmeltResults = Collections.emptyMap();
         this.customToolConfiguration = new CustomToolConfiguration(plugin);
         this.oreSearcherSettings = OreSearcherSettings.createDefault(plugin);
+        this.veinMinerSettings = VeinMinerSettings.createDefault();
         this.worldSettings = WorldSettings.createDefault();
         this.luckPermsGroupPermissionPrefix = "group.";
         this.useLuckPermsGroup = false;
@@ -56,6 +58,7 @@ public class MineConfiguration {
         this.trackedMaterials = this.parseTrackedMaterials(settingsConfiguration);
         this.autoSmeltResults = this.parseAutoSmeltResults(settingsConfiguration);
         this.oreSearcherSettings = OreSearcherSettings.fromConfiguration(this.plugin, settingsConfiguration);
+        this.veinMinerSettings = VeinMinerSettings.fromConfiguration(this.plugin, settingsConfiguration);
         this.worldSettings = WorldSettings.fromConfiguration(settingsConfiguration);
         this.parseLuckPermsSettings(settingsConfiguration);
         Map<String, ProfileSettings> parsedProfiles = this.parseProfiles(settingsConfiguration, ranksConfiguration);
@@ -153,6 +156,10 @@ public class MineConfiguration {
 
     public ConfigurationReloadResult getCustomToolReloadResult() {
         return this.customToolReloadResult;
+    }
+
+    public VeinMinerSettings getVeinMinerSettings() {
+        return this.veinMinerSettings;
     }
 
     public OreSearcherSettings getOreSearcherSettings() {

@@ -2,11 +2,13 @@ package com.skyblockexp.ezmine.listener;
 
 import com.skyblockexp.ezmine.config.MineConfiguration;
 import com.skyblockexp.ezmine.config.OreSearcherSettings;
+import com.skyblockexp.ezmine.config.VeinMinerSettings;
 import com.skyblockexp.ezmine.integration.EzSkillsIntegration;
 import com.skyblockexp.ezmine.integration.LuckyPermsIntegration;
 import com.skyblockexp.ezmine.integration.McMMOIntegration;
 import com.skyblockexp.ezmine.integration.WorldGuardIntegration;
 import com.skyblockexp.ezmine.tool.CustomToolManager;
+import com.skyblockexp.ezmine.tool.VeinMineUtil;
 import com.skyblockexp.ezmine.util.BukkitCompatibility;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -109,6 +112,7 @@ public class RankedMiningListener implements Listener {
         boolean areaMining = activeActions.contains("3x3");
         boolean autoSmeltOverride = activeActions.contains("auto-smelt");
         boolean oreSearcher = activeActions.contains("ore-searcher");
+        boolean veinMining = activeActions.contains("vein-miner");
         boolean fortuneEnabled = settings.fortuneEnabled();
         boolean applyAutoSmelt = settings.autoSmelt() || autoSmeltOverride;
 
@@ -120,6 +124,23 @@ public class RankedMiningListener implements Listener {
                     continue;
                 }
                 targets.add(adjacent);
+            }
+        }
+        if (veinMining) {
+            VeinMinerSettings veinSettings = this.configuration.getVeinMinerSettings();
+            if (veinSettings.enabled()) {
+                Set<Block> targetSet = new HashSet<>(targets);
+                List<Block> vein = VeinMineUtil.findVein(block, veinSettings.maxBlocks());
+                for (int i = 1; i < vein.size(); i++) {
+                    Block veinBlock = vein.get(i);
+                    if (targetSet.add(veinBlock)) {
+                        if (worldGuardEnabled
+                            && !this.worldGuard.isMiningAllowed(veinBlock.getLocation())) {
+                            continue;
+                        }
+                        targets.add(veinBlock);
+                    }
+                }
             }
         }
 
