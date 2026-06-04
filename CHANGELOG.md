@@ -4,6 +4,22 @@ All notable changes to EzMine are documented here.
 
 ---
 
+## [2.0.1] - 2026-06-04
+
+### Fixed
+
+- **Null pointer exception in vein mining** - `VeinMineUtil.findVein()` now gracefully handles null origin block
+- **Null pointer exception in area mining** - `AreaMineUtil.mine3x3()` now validates center block and world before use
+- **Locale-sensitive string comparison** - `AllowedActions.isAllowed()` now uses `toLowerCase(Locale.ROOT)` for consistent behavior
+- **Redundant validation** - Removed redundant `shopCost < 0` check in `CustomToolDefinition.validate()` (constructor already clamps)
+- **Inconsistent action matching** - `CustomToolListener.onItemHeld()` now uses case-insensitive action matching consistent with `onPlayerInteract()`
+
+### Added
+
+- **Unit tests** - Added test coverage for bug fixes in `AllowedActions`, `VeinMineUtil`, and `CustomToolDefinition`
+
+---
+
 ## [2.0.0] - 2025-05-08
 
 ### Breaking changes

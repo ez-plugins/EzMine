@@ -2,6 +2,7 @@ package com.github.ezplugins.ezmine.config;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -33,7 +34,7 @@ public final class AllowedActions {
         if (action == null) {
             return false;
         }
-        return ACTIONS.contains(action.toLowerCase());
+        return ACTIONS.contains(action.toLowerCase(Locale.ROOT));
     }
 
     public static Set<String> all() {

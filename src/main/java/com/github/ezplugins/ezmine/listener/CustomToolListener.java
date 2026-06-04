@@ -212,35 +212,39 @@ public class CustomToolListener implements Listener {
         } else {
             // On tool switch, enable all actions by default
             Set<String> actions = definition.getActions();
-            if (actions.contains("3x3")) {
+            boolean is3x3 = actions.stream().anyMatch(a -> a.equalsIgnoreCase("3x3"));
+            boolean isAutoSmelt = actions.stream().anyMatch(a -> a.equalsIgnoreCase("auto-smelt"));
+            boolean isOreSearcher = actions.stream().anyMatch(a -> a.equalsIgnoreCase("ore-searcher"));
+            boolean isVeinMiner = actions.stream().anyMatch(a -> a.equalsIgnoreCase("vein-miner"));
+            if (is3x3) {
                 enabled3x3.add(player.getUniqueId());
             } else {
                 enabled3x3.remove(player.getUniqueId());
             }
-            if (actions.contains("auto-smelt")) {
+            if (isAutoSmelt) {
                 enabledAutoSmelt.add(player.getUniqueId());
             } else {
                 enabledAutoSmelt.remove(player.getUniqueId());
             }
-            if (actions.contains("ore-searcher")) {
+            if (isOreSearcher) {
                 enabledOreSearcher.add(player.getUniqueId());
             } else {
                 enabledOreSearcher.remove(player.getUniqueId());
             }
-            if (actions.contains("vein-miner")) {
+            if (isVeinMiner) {
                 enabledVeinMiner.add(player.getUniqueId());
             } else {
                 enabledVeinMiner.remove(player.getUniqueId());
             }
             this.toolManager.setActiveActions(player.getUniqueId(), actions);
-            if (actions.contains("auto-smelt")) {
+            if (isAutoSmelt) {
                 player.sendMessage(ChatColor.LIGHT_PURPLE
                     + "Auto-smelt is active: all drops will be instantly smelted.");
             }
-            if (actions.contains("ore-searcher")) {
+            if (isOreSearcher) {
                 player.sendMessage(ChatColor.AQUA + "Ore searcher is active: nearby ores will be highlighted.");
             }
-            if (actions.contains("vein-miner")) {
+            if (isVeinMiner) {
                 player.sendMessage(ChatColor.GREEN
                     + "Vein miner is active: connected ores will be mined together.");
             }
