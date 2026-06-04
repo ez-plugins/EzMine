@@ -169,9 +169,6 @@ public class CustomToolDefinition {
         if (this.shopSlot < -1) {
             result.addWarning("Custom tool " + this.id + " has invalid shop slot: " + this.shopSlot);
         }
-        if (this.shopCost < 0.0D) {
-            result.addWarning("Custom tool " + this.id + " has negative shop cost: " + this.shopCost);
-        }
         if (this.displayName != null && this.displayName.length() > 1024) {
             result.addWarning("Display name for custom tool " + this.id + " is very long");
         }

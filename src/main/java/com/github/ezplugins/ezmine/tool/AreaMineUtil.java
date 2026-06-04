@@ -16,6 +16,9 @@ public class AreaMineUtil {
      * If face is UP or DOWN, mines horizontally (XZ plane). Otherwise, mines vertically (YZ or XY plane).
      */
     public static void mine3x3(Player player, Block center, BlockFace face, ItemStack tool) {
+        if (center == null || center.getWorld() == null) {
+            return;
+        }
         Location loc = center.getLocation();
         int cx = loc.getBlockX();
         int cy = loc.getBlockY();

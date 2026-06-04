@@ -34,7 +34,7 @@ public class VeinMineUtil {
      * @return list of connected same-material blocks, origin first
      */
     public static List<Block> findVein(Block origin, int maxBlocks) {
-        if (maxBlocks <= 0) {
+        if (maxBlocks <= 0 || origin == null) {
             return new ArrayList<>();
         }
 
